@@ -1,0 +1,111 @@
+{% extends "formbase.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="d-flex justify-content-center">
+                <h3 id="form-title">REGISTER ACCOUNT</h3>
+            </div>
+            <div class="d-flex justify-content-center form_container">
+                <form name="registerForm" method="POST" action="" onsubmit="return validateForm()">
+                    {% csrf_token %}
+                    <div class="input-group mb-3">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                        <input type="text" name="username" placeholder="Username.." class="form-control" oninput="checkFormFields()" value="{{ form.username.value|default_if_none:'' }}">
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        </div>
+                        <input type="email" name="email" placeholder="Email.." class="form-control" oninput="checkFormFields()" value="{{ form.email.value|default_if_none:'' }}">
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <input type="password" name="password1" placeholder="Enter password..." class="form-control" oninput="checkFormFields()">
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-append">
+                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        </div>
+                        <input type="password" name="password2" placeholder="Re-enter password..." class="form-control" oninput="checkFormFields()">
+                    </div>
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                        <input id="register-btn" class="btn login_btn" type="submit" value="Register Account" disabled>
+                    </div>
+                </form>
+            </div>
+            <div class="mt-4">
+                <div class="d-flex justify-content-center links">
+                    Already have an account? <a href="{% url 'login' %}" class="ml-2">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const allowedDomains = ['gmail.com', 'outlook.com', 'yourschool.edu'];
+
+    function validateForm() {
+        const form = document.forms["registerForm"];
+        const username = form["username"].value.trim();
+        const email = form["email"].value.trim();
+        const password1 = form["password1"].value.trim();
+        const password2 = form["password2"].value.trim();
+        
+        let valid = true;
+        let errorMessage = "";
+        let messageType = "error";
+
+        if (username === "" || email === "" || password1 === "" || password2 === "") {
+            errorMessage = "All fields are required.";
+            messageType = "warning";
+            valid = false;
+        } else if (password1.length < 8) {
+            errorMessage = "Password must be at least 8 characters long.";
+            messageType = "error";
+            valid = false;
+        } else if (password1 !== password2) {
+            errorMessage = "Passwords do not match.";
+            messageType = "error";
+            valid = false;
+        } else {
+            const emailDomain = email.split('@')[1];
+            if (!allowedDomains.includes(emailDomain)) {
+                errorMessage = "Invalid email domain. Only gmail.com, outlook.com, and yourschool.edu are allowed.";
+                messageType = "warning";
+                valid = false;
+            }
+        }
+
+        if (!valid) {
+            showJsMessage(errorMessage, messageType);
+        }
+
+        return valid;
+    }
+
+    function checkFormFields() {
+        const form = document.forms["registerForm"];
+        const username = form["username"].value.trim();
+        const email = form["email"].value.trim();
+        const password1 = form["password1"].value.trim();
+        const password2 = form["password2"].value.trim();
+
+        document.getElementById("register-btn").disabled = !(username && email && password1 && password2);
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.forms["registerForm"];
+        form["username"].addEventListener("input", checkFormFields);
+        form["email"].addEventListener("input", checkFormFields);
+        form["password1"].addEventListener("input", checkFormFields);
+        form["password2"].addEventListener("input", checkFormFields);
+    });
+</script>
+{% endblock %}

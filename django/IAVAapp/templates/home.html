@@ -1,0 +1,96 @@
+{% extends "base.html" %} 
+{% block title %} Home Page {% endblock %}
+{% block content %}
+<style>
+    .delete-button {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    padding: 0 9px;
+    font-size: 14px;
+}
+
+.online-status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.online-status.online {
+    background-color: #28a745; /* green */
+}
+
+.online-status.offline {
+    background-color: #dc3545; /* red */
+}
+</style>
+
+<div class="container mt-5">
+    <h2 class="text-center">Your Student/s</h2>
+    <div class="row">
+        {% if students %}
+            {% for student in students %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ student.name }}</h5>
+                            <p class="card-text"><strong>Level:</strong> {{ student.level }}</p>
+                            <form method="POST" action="{% url 'delete_student' student.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm delete-button" onclick="return confirm('Are you sure you want to delete {{ student.name }}?')">X</button>
+                                <span class="online-status {% if student.is_online %}online{% else %}offline{% endif %}" id="status-{{ student.id }}"></span>
+                            <span id="status-text-{{ student.id }}" class="{% if student.is_online %}text-success{% else %}text-muted{% endif %}">
+                                {% if student.is_online %}Online{% else %}Offline{% endif %}
+                            </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        {% else %}
+            <div class="col-12">
+                <p class="text-center">You have no students registered.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // Connect to WebSocket
+    const socket = new WebSocket('ws://127.0.0.1:8000/homestudent/ws/student_status/');
+    
+    socket.onopen = function(e) {
+        console.log('WebSocket connection opened');
+    };
+    
+    socket.onmessage = function(e) {
+    const data = JSON.parse(e.data);
+    console.log('Received:', data);
+    
+    // Update the status display without page refresh
+    const statusElement = document.getElementById('status-text-' + data.student_id);
+    if (statusElement) {
+        statusElement.innerHTML = data.is_online ? 'Online' : 'Offline';
+        
+        // Fix: Use your Bootstrap classes instead of custom ones
+        if (data.is_online) {
+            statusElement.className = 'text-success';  // Green for online
+        } else {
+            statusElement.className = 'text-muted';    // Gray for offline
+        }
+    }
+};
+    
+    socket.onclose = function(e) {
+        console.log('WebSocket connection closed');
+    };
+    
+    socket.onerror = function(e) {
+        console.error('WebSocket error:', e);
+    };
+</script>
+
+{% endblock %}

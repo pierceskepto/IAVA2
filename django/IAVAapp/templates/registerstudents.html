@@ -1,0 +1,93 @@
+{% extends "formbase.html" %}
+{% block title %}Register Students{% endblock %}
+{% block content %}
+<div class="container h-100">
+    <div class="d-flex justify-content-center h-100">
+        <div class="user_card">
+            <div class="d-flex justify-content-center">
+                <h3 id="form-title">REGISTER STUDENTS</h3>
+            </div>
+            <div class="d-flex justify-content-center form_container">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ formset.management_form }}
+                    <div id="student-container">
+                        <div class="student-form">
+                            <div class="input-group mb-2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                                </div>
+                                <input type="text" name="students-0-name" placeholder="Student Name..." class="form-control">
+
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                </div>
+                                <input type="password" name="students-0-password" placeholder="Password..." class="form-control">
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fas fa-graduation-cap"></i></span>
+                                </div>
+                                <input type="text" name="students-0-level" placeholder="Grade Level..." class="form-control">
+                            </div>
+                            <button type="button" class="btn btn-danger remove-btn" onclick="removeStudentForm(this)">x</button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" onclick="addStudentForm()">Add More</button>
+                    <div class="d-flex justify-content-center mt-3 login_container">
+                        <input class="btn login_btn" type="submit" value="Submit">
+                    </div>
+                    {% if not from_register %}
+                    <div class="d-flex justify-content-center mt-3">
+                        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+                    </div>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function addStudentForm() {
+        const studentContainer = document.getElementById('student-container');
+        const totalForms = document.querySelector('#id_students-TOTAL_FORMS');  // Update management form
+        const newIndex = totalForms.value;  // Get the current count of total forms
+        
+        const newStudentForm = document.createElement('div');
+        newStudentForm.className = 'student-form';
+        newStudentForm.innerHTML = `
+            <div class="input-group mb-2">
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" name="students-${newIndex}-name" placeholder="Student Name..." class="form-control">
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                </div>
+                <input type="password" name="students-${newIndex}-password" placeholder="Password..." class="form-control">
+            </div>
+            <div class="input-group mb-2">
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-graduation-cap"></i></span>
+                </div>
+                <input type="text" name="students-${newIndex}-level" placeholder="Grade Level..." class="form-control">
+            </div>
+            <button type="button" class="btn btn-danger remove-btn" onclick="removeStudentForm(this)">x</button>
+        `;
+
+        studentContainer.appendChild(newStudentForm);
+        totalForms.value = parseInt(totalForms.value) + 1;  
+    }
+
+    function removeStudentForm(button) {
+        button.parentElement.remove();
+        const totalForms = document.querySelector('#id_students-TOTAL_FORMS');  
+        totalForms.value = parseInt(totalForms.value) - 1;  
+    }
+</script>
+{% endblock %}

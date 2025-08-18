@@ -1,0 +1,299 @@
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib import messages
+from django.urls import reverse
+from .forms import RegisterForm, StudentForm
+from .models import Student
+from django.forms import modelformset_factory
+from .utils import is_student_online
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+
+
+@login_required(login_url='login')
+def home(request):
+    # Check if this is actually a parent session, not a student
+    if 'is_student' in request.session:
+        messages.error(request, 'Students cannot access parent dashboard.')
+        return redirect('homestudent')
+    
+    # Retrieve the students associated with the logged-in parent (user)
+    students = Student.objects.filter(user=request.user)
+
+    # Add online status to each student
+    for student in students:
+        student.is_online = is_student_online(student.id)
+        # Debug print - remove after testing
+        print(f"DEBUG: Student {student.name} (ID: {student.id}) is_online = {student.is_online}")
+
+    # Retrieve all messages from the session and pass them to the template
+    all_messages = messages.get_messages(request)
+    
+    # Render the 'home.html' template and pass the student data
+    return render(request, "home.html", {'students': students, 'messages': all_messages})
+
+
+def register_view(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # Save the user
+            login(request, user)  # Log the user in after successful registration
+            
+            # Clear any student session data that might exist
+            request.session.pop('student_id', None)
+            request.session.pop('student_name', None)
+            request.session.pop('is_student', None)
+            
+            messages.success(request, 'Account created successfully! Welcome to IAVA.')
+            # Use reverse to generate URL and then add query parameters
+            url = reverse('register-students') + '?from_register=True'
+            return redirect(url)  # Redirect to register-students with query parameter
+        else:
+            # Handle form validation errors
+            for field, errors in form.errors.items():
+                for error in errors:
+                    if 'username' in field.lower():
+                        messages.error(request, f'Username Error: {error}')
+                    elif 'email' in field.lower():
+                        messages.warning(request, f'Email Error: {error}')
+                    elif 'password' in field.lower():
+                        messages.error(request, f'Password Error: {error}')
+                    else:
+                        messages.error(request, f'{field.title()} Error: {error}')
+    else:
+        form = RegisterForm()
+    
+    return render(request, 'register.html', {'form': form})
+
+@login_required
+def add_students(request):
+    # Ensure this is a parent session
+    if 'is_student' in request.session:
+        messages.error(request, 'Students cannot add other students.')
+        return redirect('homestudent')
+        
+    StudentFormSet = modelformset_factory(Student, form=StudentForm, extra=1)
+
+    if request.method == 'POST':
+        formset = StudentFormSet(request.POST, queryset=Student.objects.none(), prefix='students')
+        if formset.is_valid():
+            instances = formset.save(commit=False)  # Don't commit yet to modify the instances
+            student_count = 0
+            for instance in instances:
+                instance.user = request.user  # Assign the logged-in user to the instance
+                instance.set_password(instance.password)  # Hash the password
+                instance.save()
+                student_count += 1
+            
+            if student_count == 1:
+                messages.success(request, f'Student {instances[0].name} was added successfully!')
+            else:
+                messages.success(request, f'All {student_count} students were added successfully!')
+            return redirect('home')
+        else:
+            # Handle formset validation errors
+            for form in formset:
+                if form.errors:
+                    for field, errors in form.errors.items():
+                        for error in errors:
+                            if 'level' in field.lower():
+                                messages.warning(request, f'Grade Level Error: {error}')
+                            elif 'name' in field.lower():
+                                messages.error(request, f'Student Name Error: {error}')
+                            elif 'password' in field.lower():
+                                messages.error(request, f'Password Error: {error}')
+                            else:
+                                messages.error(request, f'{field.title()} Error: {error}')
+            
+            # Check for non-field errors
+            if formset.non_form_errors():
+                for error in formset.non_form_errors():
+                    messages.error(request, f'Form Error: {error}')
+    else:
+        formset = StudentFormSet(queryset=Student.objects.none(), prefix='students')
+
+    from_register = request.GET.get('from_register', False)
+
+    return render(request, 'registerstudents.html', {'formset': formset, 'from_register': from_register})
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        # First, try to authenticate as a regular Django user (parent)
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            # Clear any existing session data before login
+            request.session.flush()
+            
+            # This is a parent account
+            login(request, user)
+            # Explicitly mark this as a parent session
+            request.session['is_parent'] = True
+            messages.success(request, f'Welcome back, {username}! Login successful.')
+            return redirect('home')  # Redirect to parent home
+        else:
+            # Try to authenticate as a student
+            try:
+                student = Student.objects.get(name=username)
+                # Check if the provided password matches the student's password
+                from django.contrib.auth.hashers import check_password
+                if check_password(password, student.password):
+                    # Clear any existing session data before login
+                    request.session.flush()
+                    
+                    # Student authentication successful
+                    # Create a session for the student (without Django's user system)
+                    request.session['student_id'] = student.id
+                    request.session['student_name'] = student.name
+                    request.session['is_student'] = True
+                    request.session['parent_user_id'] = student.user.id  # Store parent ID for reference
+                    
+                    messages.success(request, f'Welcome back, {username}! Login successful.')
+                    return redirect('homestudent')  # Redirect to student home
+                else:
+                    # Student exists but password is wrong
+                    messages.error(request, 'Password Error: The password you entered is incorrect. Please check your password and try again.')
+            except Student.DoesNotExist:
+                # Check if it might be a parent username that doesn't exist in Django User model
+                from django.contrib.auth.models import User
+                try:
+                    User.objects.get(username=username)
+                    # Username exists as parent but password was wrong (already handled above)
+                    # This shouldn't happen due to the flow, but just in case
+                    messages.error(request, 'Password Error: The password you entered is incorrect. Please check your password and try again.')
+                except User.DoesNotExist:
+                    # Username doesn't exist anywhere (neither as parent nor student)
+                    messages.error(request, 'Username Error: No account found with this username. Please check your username and try again.')
+    
+    return render(request, 'login.html')
+
+
+def homestudent_view(request):
+    # Check if student is logged in
+    if 'student_id' not in request.session or 'is_student' not in request.session:
+        messages.error(request, 'Please log in to access this page.')
+        return redirect('login')
+    
+    # Ensure this is actually a student session
+    if request.user.is_authenticated and 'is_parent' in request.session:
+        messages.error(request, 'Parents cannot access student dashboard.')
+        return redirect('home')
+    
+    # Get the student from session
+    student_id = request.session.get('student_id')
+    try:
+        student = Student.objects.get(id=student_id)
+    except Student.DoesNotExist:
+        messages.error(request, 'Student not found. Please log in again.')
+        request.session.flush()
+        return redirect('login')
+    
+    # Use the student's own ID to check online status
+    student.is_online = is_student_online(student.id)
+    print(f"DEBUG: Student {student.name} (ID: {student.id}) is_online = {student.is_online}")
+
+    return render(request, 'homestudent.html', {'student': student})
+
+
+def logout_view(request):
+    from .utils import clear_student_online_status, clear_parent_online_status
+    from channels.layers import get_channel_layer  # Add this import
+    from asgiref.sync import async_to_sync           # Add this import
+    
+    username = None
+    user_id_to_notify = None  # Track which ID to send in WebSocket
+    
+    if 'is_student' in request.session:
+        # This is a student user
+        student_name = request.session.get('student_name', 'Student')
+        student_id = request.session.get('student_id')
+        username = student_name
+        user_id_to_notify = student_id  # Store student ID for WebSocket
+        
+        # Clear the student's online status from cache immediately
+        if student_id:
+            clear_student_online_status(student_id)
+            print(f"DEBUG: Cleared online status for student ID {student_id}")
+        
+        # Clear all session data for student
+        request.session.flush()
+        messages.info(request, f'Goodbye {username}! You have been logged out successfully.')
+        
+    elif request.user.is_authenticated:
+        # This is a parent user
+        username = request.user.username
+        parent_id = request.user.id
+        user_id_to_notify = parent_id  # Store parent ID for WebSocket
+        
+        # Clear the parent's online status from cache
+        clear_parent_online_status(parent_id)
+        print(f"DEBUG: Cleared online status for parent ID {parent_id}")
+        
+        # Standard Django logout
+        logout(request)
+        # Clear any remaining session data
+        request.session.flush()
+        messages.info(request, f'Goodbye {username}! You have been logged out successfully.')
+        
+    else:
+        # No active session
+        request.session.flush()
+        messages.info(request, 'You have been logged out successfully.')
+
+    # Send real-time notification (only if we have a valid ID)
+    if user_id_to_notify:
+        channel_layer = get_channel_layer()
+        async_to_sync(channel_layer.group_send)("student_status", {
+            "type": "send_student_status",
+            "student_id": user_id_to_notify,
+            "is_online": False
+        })
+        print(f"DEBUG: Sent WebSocket notification for user ID {user_id_to_notify}")
+
+    return redirect('login')
+
+# Decorator for student authentication
+def student_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if 'student_id' not in request.session or 'is_student' not in request.session:
+            messages.error(request, 'Please log in to access this page.')
+            return redirect('login')
+        
+        # Ensure this is not a parent trying to access student views
+        if request.user.is_authenticated and 'is_parent' in request.session:
+            messages.error(request, 'Parents cannot access student areas.')
+            return redirect('home')
+            
+        return view_func(request, *args, **kwargs)
+    return wrapper
+
+# Example usage of the decorator
+@student_required
+def student_protected_view(request):
+    student_id = request.session.get('student_id')
+    student = Student.objects.get(id=student_id)
+    return render(request, 'some_student_page.html', {'student': student})
+
+
+def about_view(request):
+    return render(request, 'about.html')
+
+@login_required
+def delete_student(request, student_id):
+    # Ensure this is a parent session
+    if 'is_student' in request.session:
+        messages.error(request, 'Students cannot delete other students.')
+        return redirect('homestudent')
+        
+    student = get_object_or_404(Student, id=student_id, user=request.user)  # Ensure user owns the student
+    student_name = student.name
+    student.delete()
+    messages.success(request, f'Student "{student_name}" has been successfully deleted.')
+    return redirect('home')

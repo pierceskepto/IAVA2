@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        .message-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            width: 90%;
+            max-width: 600px;
+        }
+        
+        .custom-alert {
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            animation: slideInDown 0.3s ease-out;
+        }
+        
+        .custom-alert i {
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        
+        .alert-success {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border-left: 4px solid #155724;
+        }
+        
+        .alert-error {
+            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%);
+            color: white;
+            border-left: 4px solid #721c24;
+        }
+        
+        .alert-warning {
+            background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+            color: #212529;
+            border-left: 4px solid #856404;
+        }
+        
+        .alert-info {
+            background: linear-gradient(135deg, #17a2b8 0%, #007bff 100%);
+            color: white;
+            border-left: 4px solid #0c5460;
+        }
+        
+        @keyframes slideInDown {
+            from {
+                transform: translateX(-50%) translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(-50%) translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .fade-out {
+            transition: opacity 0.5s ease-out;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    {% if messages %}
+    <div class="message-container" id="message-container">
+        {% for message in messages %}
+            <div class="custom-alert alert-{{ message.tags }}" role="alert">
+                {% if message.tags == 'success' %}
+                    <i class="fas fa-check-circle"></i>
+                {% elif message.tags == 'error' %}
+                    <i class="fas fa-exclamation-triangle"></i>
+                {% elif message.tags == 'warning' %}
+                    <i class="fas fa-exclamation-circle"></i>
+                {% elif message.tags == 'info' %}
+                    <i class="fas fa-info-circle"></i>
+                {% endif %}
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <div class="message-container" id="js-message-container" style="display: none;"></div>
+
+    {% block content %}
+    {% endblock %}
+    
+    <script>
+        function hideMessages() {
+            const messageContainer = document.getElementById('message-container');
+            if (messageContainer) {
+                const alerts = messageContainer.querySelectorAll('.custom-alert');
+                alerts.forEach(alert => {
+                    alert.classList.add('fade-out');
+                });
+                
+                setTimeout(() => {
+                    messageContainer.remove();
+                }, 500);
+            }
+        }
+        
+        function hideJsMessages() {
+            const jsMessageContainer = document.getElementById('js-message-container');
+            if (jsMessageContainer) {
+                const alerts = jsMessageContainer.querySelectorAll('.custom-alert');
+                alerts.forEach(alert => {
+                    alert.classList.add('fade-out');
+                });
+                
+                setTimeout(() => {
+                    jsMessageContainer.style.display = 'none';
+                    jsMessageContainer.innerHTML = '';
+                }, 500);
+            }
+        }
+        
+        function showJsMessage(message, type = 'error') {
+            const jsMessageContainer = document.getElementById('js-message-container');
+            const iconMap = {
+                'success': 'fas fa-check-circle',
+                'error': 'fas fa-exclamation-triangle',
+                'warning': 'fas fa-exclamation-circle',
+                'info': 'fas fa-info-circle'
+            };
+            
+            const alertHtml = `
+                <div class="custom-alert alert-${type}" role="alert">
+                    <i class="${iconMap[type]}"></i>
+                    ${message}
+                </div>
+            `;
+            
+            jsMessageContainer.innerHTML = alertHtml;
+            jsMessageContainer.style.display = 'block';
+            
+            // Auto-hide after 4 seconds
+            setTimeout(hideJsMessages, 4000);
+        }
+        
+        // Auto-hide Django messages after 4 seconds
+        setTimeout(hideMessages, 4000);
+    </script>
+</body>
+</html>
