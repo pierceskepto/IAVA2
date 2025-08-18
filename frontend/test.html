@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Math Learning Quiz</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: white;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+      opacity: 0.9;
+    }
+    
+    .topic-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 2rem;
+    }
+    
+    .topic-button {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+      padding: 30px 20px;
+      font-size: 1.3rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    
+    .topic-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    
+    .topic-icon {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧮 AI Math Learning Quiz</h1>
+    <p class="subtitle">Choose a topic to start your math learning journey!</p>
+
+    <div class="topic-buttons">
+      <button class="topic-button" data-topic="fractions">
+        <span class="topic-icon">🍕</span>
+        Fractions
+      </button>
+      <button class="topic-button" data-topic="decimals">
+        <span class="topic-icon">🔢</span>
+        Decimals
+      </button>
+      <button class="topic-button" data-topic="angles">
+        <span class="topic-icon">📐</span>
+        Angles
+      </button>
+      <button class="topic-button" data-topic="multi-digit-multiplication">
+        <span class="topic-icon">✖️</span>
+        Multi-digit Multiplication
+      </button>
+      <button class="topic-button" data-topic="ratios-and-proportional-relationships">
+        <span class="topic-icon">⚖️</span>
+        Ratios & Proportions
+      </button>
+      <button class="topic-button" data-topic="statistics">
+        <span class="topic-icon">📊</span>
+        Statistics
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Handle topic selection
+    document.querySelectorAll('.topic-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const topic = button.dataset.topic;
+        // Navigate to topic overview page
+        window.location.href = `topic-overview.html?topic=${topic}`;
+      });
+    });
+  </script>
+</body>
+</html>
