@@ -1,0 +1,1995 @@
+{
+  "stu001": [
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/3",
+      "correct": false,
+      "timestamp": "2025-07-20T17:14:44.123570"
+    },
+    {
+      "question": "What is 1.2 + 0.3?",
+      "answer": "1.5",
+      "correct": true,
+      "timestamp": "2025-07-21T18:13:32.768528"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.6",
+      "correct": true,
+      "timestamp": "2025-07-21T18:13:51.207659"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.2",
+      "correct": false,
+      "timestamp": "2025-07-21T18:15:18.378695"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T20:13:23.570469"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-22T22:23:08.072691"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T22:23:56.085594"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-22T22:24:08.034848"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-22T22:37:55.881546"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T22:38:18.977227"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T22:38:29.131502"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T22:38:33.576508"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T22:50:50.017866"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-22T22:51:03.363866"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T23:04:05.581930"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T23:04:21.570609"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T23:04:30.562623"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T23:04:38.755469"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T23:07:42.722351"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T23:07:48.146578"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T23:07:53.445766"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-22T23:13:58.435772"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-23T14:42:32.431589"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T14:48:45.869978"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T14:48:55.342111"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T14:58:31.079923"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T14:58:39.929415"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T15:00:20.764539"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T15:07:39.871607"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T15:08:08.880117"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T15:08:39.131411"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T15:08:44.321574"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T15:08:48.282461"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T16:18:48.361449"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T16:29:12.970147"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T16:29:18.895980"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T16:29:30.936677"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-23T16:29:53.362702"
+    }
+  ],
+  "1": [
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-24T03:50:53.171832"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T12:40:56.005759"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "2",
+      "correct": false,
+      "timestamp": "2025-07-24T12:41:03.564705"
+    },
+    {
+      "question": "What type of angle is 45\u00b0?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-24T12:41:11.317669"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-24T12:44:43.367392"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-24T12:46:42.100556"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T13:09:18.737648"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T13:13:29.400195"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T13:14:42.291358"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T13:14:46.891658"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T13:14:52.659660"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T13:15:27.165154"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T13:15:33.685787"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T16:31:54.882147"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T18:20:53.226232"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T18:21:18.262044"
+    },
+    {
+      "question": "What type of angle is 45\u00b0?",
+      "answer": "45",
+      "correct": false,
+      "timestamp": "2025-07-24T18:21:24.002329"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T18:25:35.188240"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T18:26:20.958504"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T18:27:49.291305"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T18:32:00.662844"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T18:32:45.534754"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-24T18:34:46.044589"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-24T18:34:50.396608"
+    },
+    {
+      "question": "What type of angle is 45\u00b0?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-24T18:34:54.476600"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-24T18:34:58.316491"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-25T18:00:01.913078"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-25T18:49:53.215697"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "1/2",
+      "correct": false,
+      "timestamp": "2025-07-25T18:49:57.484652"
+    },
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-25T18:51:23.257366"
+    },
+    {
+      "question": "Liam ate 1/4 of a chocolate bar. Then he ate 2/4 more. What fraction of the chocolate bar did he eat in total?",
+      "answer": "3/4",
+      "correct": true,
+      "timestamp": "2025-07-25T18:52:02.251598"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-27T19:29:58.168066"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-27T20:06:32.030366"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-27T20:30:36.164251"
+    }
+  ],
+  "2": [
+    {
+      "question": "Which number is the greater 1/2 or 1/3?",
+      "answer": "1/2",
+      "correct": true,
+      "timestamp": "2025-07-25T19:18:32.602886"
+    },
+    {
+      "question": "Liam ate 1/4 of a chocolate bar. Then he ate 2/4 more. What fraction of the chocolate bar did he eat in total?",
+      "answer": "3/4",
+      "correct": true,
+      "timestamp": "2025-07-25T19:39:01.069744"
+    }
+  ],
+  "3": [
+    {
+      "question": "What is 0.7 + 0.2?",
+      "answer": "1/2",
+      "correct": false,
+      "timestamp": "2025-07-25T20:01:32.375968"
+    },
+    {
+      "question": "What is 0.7 + 0.2?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-25T20:01:36.925492"
+    },
+    {
+      "question": "What is 0.7 + 0.2?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-25T20:50:59.637751"
+    },
+    {
+      "question": "What is 1.2 + 0.3?",
+      "answer": "1.5",
+      "correct": true,
+      "timestamp": "2025-07-25T20:52:16.904549"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-25T20:52:36.465432"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-25T20:52:54.618495"
+    },
+    {
+      "question": "What is 4.6 - 2.3?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-25T20:56:44.699596"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-25T21:01:03.903661"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-25T21:01:12.712642"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-25T21:01:17.671752"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-25T21:01:20.880470"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "3/4",
+      "correct": false,
+      "timestamp": "2025-07-25T21:01:25.896593"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.6",
+      "correct": true,
+      "timestamp": "2025-07-26T14:15:31.393174"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.6",
+      "correct": true,
+      "timestamp": "2025-07-26T14:15:40.009102"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-26T14:16:22.171548"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-26T14:16:33.977695"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-26T14:16:39.226374"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "6.25",
+      "correct": false,
+      "timestamp": "2025-07-26T14:16:57.604488"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "6.25",
+      "correct": false,
+      "timestamp": "2025-07-26T14:17:30.484847"
+    },
+    {
+      "question": "What is 0.7 + 0.2?",
+      "answer": "0.9",
+      "correct": true,
+      "timestamp": "2025-07-26T14:19:24.754447"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.6",
+      "correct": true,
+      "timestamp": "2025-07-26T14:19:41.643733"
+    }
+  ],
+  "4": [
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-27T19:27:02.904675"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T19:27:31.146521"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T19:27:36.474717"
+    },
+    {
+      "question": "Multiply 0.4 by 3",
+      "answer": "1.2",
+      "correct": true,
+      "timestamp": "2025-07-27T19:27:51.419083"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "4.3",
+      "correct": true,
+      "timestamp": "2025-07-27T19:28:18.941262"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-27T19:29:12.967413"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "9",
+      "correct": true,
+      "timestamp": "2025-07-27T19:30:11.578076"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T19:37:37.568259"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "0.3",
+      "correct": true,
+      "timestamp": "2025-07-27T19:38:03.526592"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "6.25",
+      "correct": false,
+      "timestamp": "2025-07-27T19:38:30.765212"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T20:05:03.577476"
+    },
+    {
+      "question": "What is 4.6 - 2.3?",
+      "answer": "2.3",
+      "correct": true,
+      "timestamp": "2025-07-27T20:05:11.836836"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "4.3",
+      "correct": true,
+      "timestamp": "2025-07-27T20:05:38.182761"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "\"8.018\"",
+      "correct": false,
+      "timestamp": "2025-07-27T20:05:54.238872"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "1/2",
+      "correct": false,
+      "timestamp": "2025-07-27T20:08:59.414969"
+    },
+    {
+      "question": "Multiply 0.4 by 3",
+      "answer": "0.4",
+      "correct": false,
+      "timestamp": "2025-07-27T20:09:11.855762"
+    },
+    {
+      "question": "What is 4.6 - 2.3?",
+      "answer": "2.3",
+      "correct": true,
+      "timestamp": "2025-07-27T20:09:22.624179"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "4.3",
+      "correct": true,
+      "timestamp": "2025-07-27T20:18:00.054911"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T20:18:06.985466"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "8",
+      "correct": false,
+      "timestamp": "2025-07-27T20:18:22.488452"
+    },
+    {
+      "question": "What is 0.7 + 0.2?",
+      "answer": "0.9",
+      "correct": true,
+      "timestamp": "2025-07-27T20:19:25.266547"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T20:19:28.786336"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "16.7",
+      "correct": false,
+      "timestamp": "2025-07-27T20:23:34.109948"
+    },
+    {
+      "question": "Multiply 0.4 by 3",
+      "answer": "1.2",
+      "correct": true,
+      "timestamp": "2025-07-27T20:23:49.574420"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "timestamp": "2025-07-27T20:27:58.864916"
+    },
+    {
+      "question": "What is 7.07 + 2.93?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T20:29:35.157049"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "timestamp": "2025-07-27T20:29:45.366341"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "4.3",
+      "correct": true,
+      "timestamp": "2025-07-27T20:30:06.270540"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T20:31:27.169718"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "8.0",
+      "correct": true,
+      "timestamp": "2025-07-27T20:31:39.090395"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "8.0",
+      "correct": true,
+      "timestamp": "2025-07-27T20:42:31.300999"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T21:05:39.946540"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "4.3",
+      "correct": true,
+      "timestamp": "2025-07-27T21:06:21.773435"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.6",
+      "correct": true,
+      "timestamp": "2025-07-27T21:06:38.530704"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-27T21:08:53.169448"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-27T23:43:50.912168"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T23:46:53.795799"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "timestamp": "2025-07-27T23:47:07.551887"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "4.3",
+      "correct": true,
+      "timestamp": "2025-07-27T23:47:13.831297"
+    },
+    {
+      "question": "What is 7.07 + 2.93?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-27T23:47:16.462888"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "1/2",
+      "correct": false,
+      "timestamp": "2025-07-27T23:47:36.143811"
+    },
+    {
+      "question": "What is 1.2 + 0.3?",
+      "answer": "1.1",
+      "correct": false,
+      "timestamp": "2025-07-27T23:47:44.352655"
+    },
+    {
+      "question": "What is 4.6 - 2.3?",
+      "answer": "6.25",
+      "correct": false,
+      "timestamp": "2025-07-27T23:57:43.107841"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-27T23:57:50.226439"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "0.25",
+      "correct": false,
+      "timestamp": "2025-07-27T23:58:01.212411"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "4.3",
+      "correct": true,
+      "timestamp": "2025-07-27T23:58:19.245022"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "8.0",
+      "correct": true,
+      "timestamp": "2025-07-27T23:58:29.077229"
+    },
+    {
+      "question": "What is 7.07 + 2.93?",
+      "answer": "10.0",
+      "correct": true,
+      "timestamp": "2025-07-28T01:10:06.078747"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-28T01:10:21.737262"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-28T01:10:30.201163"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-28T01:10:41.202632"
+    },
+    {
+      "question": "What is 1.2 + 0.3?",
+      "answer": "1.5",
+      "correct": true,
+      "timestamp": "2025-07-28T01:10:49.276445"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "0.30",
+      "correct": true,
+      "timestamp": "2025-07-28T01:11:52.621667"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-28T01:11:56.468530"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "8",
+      "correct": true,
+      "timestamp": "2025-07-28T01:12:04.526339"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "timestamp": "2025-07-28T01:12:09.277405"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-28T01:12:15.620829"
+    },
+    {
+      "question": "What is 7.07 + 2.93?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-28T01:12:27.726548"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "0.30",
+      "correct": true,
+      "timestamp": "2025-07-28T01:18:14.446272"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-28T01:18:17.942057"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.4",
+      "correct": false,
+      "timestamp": "2025-07-28T01:18:26.957081"
+    },
+    {
+      "question": "Multiply 0.4 by 3",
+      "answer": "0.12",
+      "correct": false,
+      "timestamp": "2025-07-28T01:18:36.568254"
+    },
+    {
+      "question": "What is 0.7 + 0.2?",
+      "answer": "0.10",
+      "correct": false,
+      "timestamp": "2025-07-28T01:18:44.125950"
+    },
+    {
+      "question": "Multiply 0.4 by 3",
+      "answer": "0.12",
+      "correct": false,
+      "timestamp": "2025-07-28T01:19:06.614999"
+    },
+    {
+      "question": "What is 4.6 - 2.3?",
+      "answer": "2.3",
+      "correct": true,
+      "timestamp": "2025-07-28T01:19:17.375920"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "4.3",
+      "correct": true,
+      "timestamp": "2025-07-28T01:19:27.514196"
+    },
+    {
+      "question": "What is 7.07 + 2.93?",
+      "answer": "10",
+      "correct": true,
+      "timestamp": "2025-07-28T01:19:40.674152"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-28T01:19:44.665047"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "0.30",
+      "correct": true,
+      "timestamp": "2025-07-28T01:20:02.210494"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "6.25",
+      "correct": false,
+      "timestamp": "2025-07-28T01:20:08.947006"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "4.3",
+      "correct": true,
+      "timestamp": "2025-07-28T01:20:17.468919"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "timestamp": "2025-07-28T01:20:23.963377"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "idk",
+      "correct": false,
+      "timestamp": "2025-07-28T01:20:27.076076"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "8.0",
+      "correct": true,
+      "timestamp": "2025-07-28T01:47:03.160785"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "3.3",
+      "correct": false,
+      "timestamp": "2025-07-28T01:47:08.327945"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "timestamp": "2025-07-28T01:47:12.864469"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "3",
+      "correct": false,
+      "timestamp": "2025-07-28T01:47:24.889168"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.6",
+      "correct": true,
+      "timestamp": "2025-07-28T01:47:42.651156"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "timestamp": "2025-07-28T01:48:29.309153"
+    },
+    {
+      "question": "What is 7.07 + 2.93?",
+      "answer": "10.0",
+      "correct": true,
+      "timestamp": "2025-07-28T01:48:32.290822"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "0.9",
+      "correct": false,
+      "timestamp": "2025-07-28T01:48:42.149035"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "0.3",
+      "correct": true,
+      "timestamp": "2025-07-28T01:48:48.999078"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.6",
+      "correct": true,
+      "timestamp": "2025-07-28T01:48:56.589783"
+    },
+    {
+      "question": "What is 7.07 + 2.93?",
+      "answer": "10.0",
+      "correct": true,
+      "timestamp": "2025-07-28T04:55:37.445246"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "0.9",
+      "correct": false,
+      "timestamp": "2025-07-28T04:56:06.174202"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "8.0",
+      "correct": true,
+      "timestamp": "2025-07-28T04:56:12.405601"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "timestamp": "2025-07-28T04:56:16.278470"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "2.1",
+      "correct": false,
+      "timestamp": "2025-07-28T04:56:24.176749"
+    },
+    {
+      "question": "An angle measures 110\u00b0. What type of angle is it?",
+      "answer": "Reflex",
+      "correct": false,
+      "timestamp": "2025-07-28T04:57:05.830605"
+    },
+    {
+      "question": "What type of angle is 45\u00b0?",
+      "answer": "Acute",
+      "correct": true,
+      "timestamp": "2025-07-28T04:57:09.262375"
+    },
+    {
+      "question": "Which of the following is an Obtuse angle?",
+      "answer": "120\u00b0",
+      "correct": true,
+      "timestamp": "2025-07-28T04:57:17.944324"
+    },
+    {
+      "question": "What is the supplement of a 132\u00b0 angle?",
+      "answer": "68\u00b0",
+      "correct": false,
+      "timestamp": "2025-07-28T04:57:22.601370"
+    },
+    {
+      "question": "An angle measures 135\u00b0. What type of angle is it?",
+      "answer": "Obtuse",
+      "correct": true,
+      "timestamp": "2025-07-28T04:57:26.392221"
+    },
+    {
+      "question": "Which data set has a range of 6?",
+      "answer": "2, 4, 5, 8",
+      "correct": true,
+      "timestamp": "2025-07-28T05:10:05.890509"
+    },
+    {
+      "question": "A set has these numbers: 3, 4, 4, 5, 5, 6. What is the median?",
+      "answer": "4.5",
+      "correct": true,
+      "timestamp": "2025-07-28T05:10:14.251386"
+    },
+    {
+      "question": "What is the mean of these numbers: 14, 16, 20, 18, 22, 24?",
+      "answer": "20",
+      "correct": false,
+      "timestamp": "2025-07-28T05:10:22.297192"
+    },
+    {
+      "question": "Find the mode of the following set of numbers: 3, 7, 3, 2, 9, 10, 3, 4, 5, 6.",
+      "answer": "3",
+      "correct": true,
+      "timestamp": "2025-07-28T05:10:29.865892"
+    },
+    {
+      "question": "What is the range of this data set: 2, 9, 4, 1, 6?",
+      "answer": "8",
+      "correct": true,
+      "timestamp": "2025-07-28T05:10:40.403762"
+    },
+    {
+      "question": "A recipe needs 2/3 cup of milk, but you only have a 1/6 cup measuring spoon. How many scoops do you need?",
+      "answer": "4",
+      "correct": true,
+      "timestamp": "2025-07-28T05:11:07.507847"
+    },
+    {
+      "question": "An angle is described as 3 times larger than its complement. What is the angle?",
+      "answer": "67.5\u00b0",
+      "correct": true,
+      "timestamp": "2025-07-28T05:11:25.847470"
+    },
+    {
+      "question": "What is the supplement of a 132\u00b0 angle?",
+      "answer": "42\u00b0",
+      "correct": false,
+      "timestamp": "2025-07-28T05:11:28.910157"
+    },
+    {
+      "question": "A store sells 56 balloons per box. If there are 4 boxes, how many balloons in total?",
+      "answer": "216",
+      "correct": false,
+      "timestamp": "2025-07-28T05:14:54.496842"
+    },
+    {
+      "question": "What is 36 \u00d7 4?",
+      "answer": "144",
+      "correct": true,
+      "timestamp": "2025-07-28T05:15:11.277610"
+    },
+    {
+      "question": "Given a constant k, such that k:5 is proportional to 10:25. Find the value of k.",
+      "answer": "5",
+      "correct": false,
+      "timestamp": "2025-07-28T05:15:21.751962"
+    },
+    {
+      "question": "If 4 pens cost $12, how much do 10 pens cost at the same rate?",
+      "answer": "30",
+      "correct": true,
+      "timestamp": "2025-07-28T05:15:25.878887"
+    },
+    {
+      "question": "Multiply: 42 \u00d7 6",
+      "answer": "240",
+      "correct": false,
+      "timestamp": "2025-07-28T11:18:19.940967"
+    },
+    {
+      "question": "Which data set has a range of 6?",
+      "answer": "2, 4, 5, 8",
+      "correct": true,
+      "timestamp": "2025-07-28T11:23:39.140326"
+    },
+    {
+      "question": "Find the mode of the following set of numbers: 3, 7, 3, 2, 9, 10, 3, 4, 5, 6.",
+      "answer": "3",
+      "correct": true,
+      "timestamp": "2025-07-28T11:23:46.926074"
+    },
+    {
+      "question": "Which statement is always true?",
+      "answer": "The mean is always greater than the median",
+      "correct": false,
+      "timestamp": "2025-07-28T11:23:51.641132"
+    },
+    {
+      "question": "The scores are: 10, 15, 20, 25. What is the mean?",
+      "answer": "20",
+      "correct": false,
+      "timestamp": "2025-07-28T11:24:00.976227"
+    },
+    {
+      "question": "The ages of 10 students in a class are: 15, 16, 14, 15, 16, 15, 17, 16, 14, and 15. Find the mean age of the students.",
+      "answer": "15",
+      "correct": false,
+      "timestamp": "2025-07-28T11:24:23.249228"
+    },
+    {
+      "question": "A recipe uses 2 cups of sugar for every 3 cups of flour. What is the ratio of sugar to flour?",
+      "answer": "2:3",
+      "correct": true,
+      "timestamp": "2025-07-28T11:32:55.125217"
+    },
+    {
+      "question": "Given a constant k, such that k:5 is proportional to 10:25. Find the value of k.",
+      "answer": "5",
+      "correct": false,
+      "timestamp": "2025-07-28T11:33:00.860504"
+    },
+    {
+      "question": "A map has a scale of 1:100. If a building is 3 cm long on the map, how long is it in real life?",
+      "answer": "30",
+      "correct": false,
+      "timestamp": "2025-07-28T11:33:05.981654"
+    },
+    {
+      "question": "What is the ratio of 3 red balls to 6 blue balls?",
+      "answer": "3:6",
+      "correct": false,
+      "timestamp": "2025-07-28T11:33:13.166268"
+    },
+    {
+      "question": "Is the ratio 5:10 proportional to 1:2?",
+      "answer": "Yes",
+      "correct": true,
+      "timestamp": "2025-07-28T11:33:17.078650"
+    },
+    {
+      "question": "Liam ate 1/4 of a chocolate bar. Then he ate 2/4 more. What fraction of the chocolate bar did he eat in total?",
+      "answer": "2/8",
+      "correct": false,
+      "timestamp": "2025-07-28T11:43:30.736528"
+    },
+    {
+      "question": "Emma baked a pie and ate 3/8 of it. Her brother ate 2/8. How much of the pie did they eat together?",
+      "answer": "1/2",
+      "correct": false,
+      "timestamp": "2025-07-28T11:43:39.226435"
+    },
+    {
+      "question": "What is 0.7 + 0.2?",
+      "answer": "0.9",
+      "correct": true,
+      "timestamp": "2025-07-28T11:43:55.137006"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "timestamp": "2025-07-28T11:44:11.234632"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-28T11:44:18.598286"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "21",
+      "correct": true,
+      "timestamp": "2025-07-28T11:44:23.090294"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "9",
+      "correct": true,
+      "timestamp": "2025-07-28T11:44:31.990292"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "21",
+      "correct": true,
+      "timestamp": "2025-07-28T11:53:46.648942"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-28T11:53:56.651197"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "0.9",
+      "correct": false,
+      "timestamp": "2025-07-28T11:54:06.241857"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "3.3",
+      "correct": false,
+      "timestamp": "2025-07-28T11:54:11.281989"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "timestamp": "2025-07-28T11:54:14.969818"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.6",
+      "correct": true,
+      "timestamp": "2025-07-28T11:55:31.165743"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "9",
+      "correct": true,
+      "timestamp": "2025-07-28T11:55:35.909808"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "timestamp": "2025-07-28T11:55:39.086026"
+    },
+    {
+      "question": "What is 7.07 + 2.93?",
+      "answer": "10.1",
+      "correct": false,
+      "timestamp": "2025-07-28T11:55:44.302198"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "0.11",
+      "correct": false,
+      "timestamp": "2025-07-28T11:55:49.614390"
+    },
+    {
+      "question": "What type of angle is 180\u00b0?",
+      "answer": "Reflex",
+      "correct": false,
+      "timestamp": "2025-07-28T12:24:04.191776"
+    },
+    {
+      "question": "What is 12 \u00d7 4?",
+      "answer": "48",
+      "correct": true,
+      "timestamp": "2025-07-28T12:24:09.199900"
+    },
+    {
+      "question": "Multiply: 42 \u00d7 6",
+      "answer": "300",
+      "correct": false,
+      "timestamp": "2025-07-28T12:24:11.209351"
+    },
+    {
+      "question": "If 4 pens cost $12, how much do 10 pens cost at the same rate?",
+      "answer": "24",
+      "correct": false,
+      "timestamp": "2025-07-28T12:24:16.408518"
+    },
+    {
+      "question": "Find the median of the numbers: 2, 5, 7",
+      "answer": "2",
+      "correct": false,
+      "timestamp": "2025-07-28T12:24:21.033557"
+    },
+    {
+      "question": "Which fraction is equal to 2/4?",
+      "answer": "1/2",
+      "correct": true,
+      "points": 110,
+      "time_spent": 10.095,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T14:45:26.905123"
+    },
+    {
+      "question": "Lucy drank 2/5 of her juice in the morning and 1/5 later. How much did she drink in total?",
+      "answer": "3/5",
+      "correct": true,
+      "points": 175,
+      "time_spent": 8.662,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T14:45:36.625306"
+    },
+    {
+      "question": "Which is greater: 4/5 or 5/6?",
+      "answer": "5/6",
+      "correct": true,
+      "points": 225,
+      "time_spent": 5.204,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T14:45:42.682188"
+    },
+    {
+      "question": "A recipe needs 2/3 cup of milk, but you only have a 1/6 cup measuring spoon. How many scoops do you need?",
+      "answer": "3",
+      "correct": false,
+      "points": 0,
+      "time_spent": 5.417,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T14:45:48.907092"
+    },
+    {
+      "question": "What is 2/3 of 6?",
+      "answer": "2",
+      "correct": false,
+      "points": 0,
+      "time_spent": 2.142,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T14:45:52.291852"
+    },
+    {
+      "question": "What is 4.6 - 2.3?",
+      "answer": "6.9",
+      "correct": false,
+      "points": 0,
+      "time_spent": 6.438,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T14:46:25.924403"
+    },
+    {
+      "question": "What is 1.2 + 0.3?",
+      "answer": "1.5",
+      "correct": true,
+      "points": 150,
+      "time_spent": 4.861,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T14:46:31.715704"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "0.3",
+      "correct": true,
+      "points": 200,
+      "time_spent": 4.532,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T14:46:37.348967"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "2.1",
+      "correct": false,
+      "points": 0,
+      "time_spent": 2.897,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T14:46:41.749967"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "4.1",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.717,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T14:46:44.404574"
+    },
+    {
+      "question": "What is 0.7 + 0.2?",
+      "answer": "0.9",
+      "correct": true,
+      "points": 150,
+      "time_spent": 3.932,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T16:19:01.499529"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "points": 200,
+      "time_spent": 4.196,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:19:06.771730"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "9",
+      "correct": true,
+      "points": 225,
+      "time_spent": 7.836,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:19:16.389625"
+    },
+    {
+      "question": "What is 7.07 + 2.93?",
+      "answer": "10.0",
+      "correct": true,
+      "points": 225,
+      "time_spent": 5.311,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:19:22.693040"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "0.21",
+      "correct": false,
+      "points": 0,
+      "time_spent": 2.142,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:19:25.641702"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "7.90",
+      "correct": false,
+      "points": 0,
+      "time_spent": 3.961,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:19:39.405792"
+    },
+    {
+      "question": "Multiply 0.4 by 3",
+      "answer": "0.7",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.192,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T16:19:41.414749"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "points": 150,
+      "time_spent": 1.543,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T16:19:43.607242"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "points": 200,
+      "time_spent": 4.104,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:19:48.465260"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "9",
+      "correct": true,
+      "points": 250,
+      "time_spent": 2.722,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:19:52.344130"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "9",
+      "correct": true,
+      "points": 250,
+      "time_spent": 2.192,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:31:33.918286"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "8.018",
+      "correct": true,
+      "points": 250,
+      "time_spent": 4.64,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:31:39.510289"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "2.1",
+      "correct": false,
+      "points": 0,
+      "time_spent": 2.577,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:31:42.832035"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "0.11",
+      "correct": false,
+      "points": 0,
+      "time_spent": 2.247,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:31:45.837710"
+    },
+    {
+      "question": "What is 0.7 + 0.2?",
+      "answer": "0.9",
+      "correct": true,
+      "points": 150,
+      "time_spent": 3.674,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T16:31:50.309714"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "0.11",
+      "correct": false,
+      "points": 0,
+      "time_spent": 2.378,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:33:02.231883"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "8.0",
+      "correct": true,
+      "points": 200,
+      "time_spent": 2.837,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:33:06.192773"
+    },
+    {
+      "question": "Find the average of 1.8, 2.4, and 3.6.",
+      "answer": "2.6",
+      "correct": true,
+      "points": 200,
+      "time_spent": 1.891,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:33:08.788355"
+    },
+    {
+      "question": "What is 7.07 + 2.93?",
+      "answer": "10.0",
+      "correct": true,
+      "points": 250,
+      "time_spent": 2.679,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:33:12.073093"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "21",
+      "correct": true,
+      "points": 250,
+      "time_spent": 1.899,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:33:14.661674"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "0.21",
+      "correct": false,
+      "points": 0,
+      "time_spent": 8.864,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:34:22.917513"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "points": 200,
+      "time_spent": 1.901,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:34:26.711364"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "8.0",
+      "correct": true,
+      "points": 200,
+      "time_spent": 4.137,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:34:32.205599"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "90",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.751,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:34:35.407317"
+    },
+    {
+      "question": "What is 0.6 \u00d7 0.5?",
+      "answer": "3",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.33,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:34:37.316745"
+    },
+    {
+      "question": "What is 4.6 - 2.3?",
+      "answer": "2.1",
+      "correct": false,
+      "points": 0,
+      "time_spent": 4.719,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T16:35:36.762609"
+    },
+    {
+      "question": "Add 2.5 and 3.75",
+      "answer": "6.25",
+      "correct": true,
+      "points": 150,
+      "time_spent": 1.655,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T16:35:39.184151"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "3.3",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.428,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:35:41.194603"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.0",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.17,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:35:42.993006"
+    },
+    {
+      "question": "What is 1.2 + 0.3?",
+      "answer": "1.5",
+      "correct": true,
+      "points": 150,
+      "time_spent": 4.028,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T16:35:47.801086"
+    },
+    {
+      "question": "What is the range of this data set: 2, 9, 4, 1, 6?",
+      "answer": "8",
+      "correct": true,
+      "points": 200,
+      "time_spent": 3.249,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T16:36:08.656781"
+    },
+    {
+      "question": "A set has these numbers: 3, 4, 4, 5, 5, 6. What is the median?",
+      "answer": "4.5",
+      "correct": true,
+      "points": 250,
+      "time_spent": 1.086,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:36:10.620221"
+    },
+    {
+      "question": "The test scores are: 88, 90, 88, 92, 87, 88, 91. What is the mode?",
+      "answer": "88",
+      "correct": true,
+      "points": 250,
+      "time_spent": 0.955,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:36:12.762703"
+    },
+    {
+      "question": "A set of numbers has a mean of 12. If there are 5 numbers, what is their total sum?",
+      "answer": "60",
+      "correct": true,
+      "points": 250,
+      "time_spent": 1.33,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:36:14.857173"
+    },
+    {
+      "question": "Which statement is always true?",
+      "answer": "The mean is always greater than the median",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.189,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T16:36:16.827615"
+    },
+    {
+      "question": "What is 3.25 + 4.75?",
+      "answer": "8.0",
+      "correct": true,
+      "points": 175,
+      "time_spent": 5.2,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T18:23:21.221055"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "3.5",
+      "correct": true,
+      "points": 200,
+      "time_spent": 2.316,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T18:23:25.632042"
+    },
+    {
+      "question": "Divide 4.5 by 0.5",
+      "answer": "9",
+      "correct": true,
+      "points": 225,
+      "time_spent": 6.373,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T18:23:34.378001"
+    },
+    {
+      "question": "What is 12.6 \u00f7 0.6?",
+      "answer": "21",
+      "correct": true,
+      "points": 250,
+      "time_spent": 1.064,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T18:23:36.330439"
+    },
+    {
+      "question": "Add 2.34 + 5.678",
+      "answer": "7.912",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.858,
+      "difficulty": "hard",
+      "timestamp": "2025-07-28T18:23:39.354116"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "3.3",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.184,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T18:23:42.961924"
+    },
+    {
+      "question": "Multiply 0.4 by 3",
+      "answer": "1.2",
+      "correct": true,
+      "points": 125,
+      "time_spent": 5.536,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T18:24:44.566720"
+    },
+    {
+      "question": "Subtract 6.2 from 10.5",
+      "answer": "3.3",
+      "correct": false,
+      "points": 0,
+      "time_spent": 2.33,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T18:24:48.748657"
+    },
+    {
+      "question": "Find the average of 2.5, 3.5, and 4.5",
+      "answer": "10.5",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.614,
+      "difficulty": "medium",
+      "timestamp": "2025-07-28T18:24:51.468266"
+    },
+    {
+      "question": "What is 0.7 + 0.2?",
+      "answer": "1.9",
+      "correct": false,
+      "points": 0,
+      "time_spent": 2.073,
+      "difficulty": "easy",
+      "timestamp": "2025-07-28T18:25:45.143288"
+    },
+    {
+      "question": "Which fraction is equal to 2/4?",
+      "answer": "1/2",
+      "correct": true,
+      "points": 125,
+      "time_spent": 6.988,
+      "difficulty": "easy",
+      "timestamp": "2025-08-05T17:38:18.793344"
+    },
+    {
+      "question": "Lucy drank 2/5 of her juice in the morning and 1/5 later. How much did she drink in total?",
+      "answer": "3/5",
+      "correct": true,
+      "points": 175,
+      "time_spent": 8.167,
+      "difficulty": "medium",
+      "timestamp": "2025-08-05T17:38:27.967923"
+    },
+    {
+      "question": "If you have 7/8 of a cake and eat 3/4 of it, how much is left?",
+      "answer": "4/8",
+      "correct": false,
+      "points": 0,
+      "time_spent": 6.962,
+      "difficulty": "hard",
+      "timestamp": "2025-08-05T17:38:35.921303"
+    },
+    {
+      "question": "Liam ate 1/4 of a chocolate bar. Then he ate 2/4 more. What fraction of the chocolate bar did he eat in total?",
+      "answer": "3/8",
+      "correct": false,
+      "points": 0,
+      "time_spent": 2.052,
+      "difficulty": "medium",
+      "timestamp": "2025-08-05T17:38:39.312070"
+    },
+    {
+      "question": "What is 1/5 + 2/5?",
+      "answer": "3/5",
+      "correct": true,
+      "points": 150,
+      "time_spent": 2.433,
+      "difficulty": "easy",
+      "timestamp": "2025-08-05T17:38:43.367986"
+    },
+    {
+      "question": "Which is greater: 5/8 or 3/4?",
+      "answer": "Equal",
+      "correct": false,
+      "points": 0,
+      "time_spent": 2.448,
+      "difficulty": "medium",
+      "timestamp": "2025-08-14T14:03:15.455205"
+    },
+    {
+      "question": "Liam ate 1/4 of a chocolate bar. Then he ate 2/4 more. What fraction of the chocolate bar did he eat in total?",
+      "answer": "2/8",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.662,
+      "difficulty": "medium",
+      "timestamp": "2025-08-14T14:03:18.837077"
+    },
+    {
+      "question": "What is 1/3 + 1/3?",
+      "answer": "1/6",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.084,
+      "difficulty": "easy",
+      "timestamp": "2025-08-14T14:03:20.830589"
+    },
+    {
+      "question": "Which fraction is equal to 2/4?",
+      "answer": "2/2",
+      "correct": false,
+      "points": 0,
+      "time_spent": 1.083,
+      "difficulty": "easy",
+      "timestamp": "2025-08-14T14:03:22.525510"
+    },
+    {
+      "question": "What is 1/5 + 2/5?",
+      "answer": "3/5",
+      "correct": true,
+      "points": 150,
+      "time_spent": 2.103,
+      "difficulty": "easy",
+      "timestamp": "2025-08-14T14:03:25.684771"
+    }
+  ]
+}

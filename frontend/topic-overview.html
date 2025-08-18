@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Topic Overview - AI Math Quiz</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: white;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .topic-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    .content-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      margin-bottom: 2rem;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+    
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: bold;
+    }
+    
+    .btn-primary {
+      background: #4CAF50;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background: #45a049;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+    
+    .loading {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <span class="topic-icon" id="topicIcon">🧮</span>
+      <h1 id="topicTitle">Loading...</h1>
+    </div>
+
+    <div class="content-card">
+      <div class="description" id="topicDescription">
+        Loading topic information...
+      </div>
+
+      <div class="video-container" id="videoContainer">
+        <div class="loading">Loading educational video...</div>
+      </div>
+
+      <div class="action-buttons">
+        <a href="#" class="btn btn-primary" id="startQuizBtn">
+          🚀 Start Quiz
+        </a>
+        <a href="index.html" class="btn btn-secondary">
+          ← Back to Topics
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Topic data with descriptions and video IDs
+    const topicData = {
+      'fractions': {
+        icon: '🍕',
+        title: 'Fractions',
+        description: 'Fractions represent parts of a whole. Think of a pizza cut into slices - each slice is a fraction of the entire pizza! In this topic, you\'ll learn how to compare fractions, add them together, and understand what they really mean. Fractions are everywhere in real life, from cooking recipes to measuring ingredients.',
+        videoId: 'LfinAYGVRUE' // Math Antics - What Are Fractions
+      },
+      'decimals': {
+        icon: '🔢',
+        title: 'Decimals',
+        description: 'Decimals are another way to represent parts of a whole, using a decimal point. They\'re closely related to fractions and are used extensively in money, measurements, and calculations. You\'ll learn to add, subtract, multiply, and divide decimals, and understand how they connect to the place value system.',
+        videoId: 'MYfYe22DQVQ' // Math Antics - Decimal Place Value
+      },
+      'angles': {
+        icon: '📐',
+        title: 'Angles',
+        description: 'Angles are formed when two lines meet at a point. They\'re measured in degrees and come in different types: acute (less than 90°), right (exactly 90°), obtuse (between 90° and 180°), and reflex (greater than 180°). Understanding angles is fundamental to geometry and helps us describe shapes and rotations.',
+        videoId: 'mrrNyYuXVEw' // Math Antics - Angle Basics
+      },
+      'multi-digit-multiplication': {
+        icon: '✖️',
+        title: 'Multi-digit Multiplication',
+        description: 'Multi-digit multiplication builds on your basic multiplication facts to solve problems with larger numbers. You\'ll learn techniques like the standard algorithm, partial products, and area models. These skills are essential for solving real-world problems involving quantities, areas, and scaling.',
+        videoId: 'M0mDhYpv_ZQ' // Math Antics - Multi-Digit Multiplication
+      },
+      'ratios-and-proportional-relationships': {
+        icon: '⚖️',
+        title: 'Ratios & Proportional Relationships',
+        description: 'Ratios compare quantities and show relationships between different amounts. Proportional relationships maintain the same ratio as quantities change. These concepts are crucial for understanding scaling, rates, percentages, and many real-world applications like recipes, maps, and unit conversions.',
+        videoId: 'jrEXQBn4_uc' // Math Antics - Ratios And Rates
+      },
+      'statistics': {
+        icon: '📊',
+        title: 'Statistics',
+        description: 'Statistics help us make sense of data by organizing, analyzing, and interpreting information. You\'ll learn about measures of central tendency (mean, median, mode), how to create and read graphs, and how to draw conclusions from data. These skills are essential in our data-driven world.',
+        videoId: 'MdHBFJjKoOY' // Math Antics - Mean, Median and Mode
+      }
+    };
+
+    // Get topic from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const topic = urlParams.get('topic');
+
+    if (topic && topicData[topic]) {
+      const data = topicData[topic];
+      
+      // Update page content
+      document.getElementById('topicIcon').textContent = data.icon;
+      document.getElementById('topicTitle').textContent = data.title;
+      document.getElementById('topicDescription').textContent = data.description;
+      
+      // Update video
+      const videoContainer = document.getElementById('videoContainer');
+      videoContainer.innerHTML = `
+        <iframe 
+          src="https://www.youtube.com/embed/${data.videoId}"
+          allowfullscreen>
+        </iframe>
+      `;
+      
+      // Update quiz button link                    //quiz.html or quizv2.html(multiple choices)
+      document.getElementById('startQuizBtn').href = `quizv2.html?topic=${topic}`; 
+      
+      // Update page title
+      document.title = `${data.title} - AI Math Quiz`;
+    } else {
+      // Handle invalid topic
+      document.getElementById('topicTitle').textContent = 'Topic Not Found';
+      document.getElementById('topicDescription').textContent = 'Sorry, the requested topic could not be found.';
+      document.getElementById('videoContainer').innerHTML = '<div class="loading">No video available</div>';
+      document.getElementById('startQuizBtn').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
