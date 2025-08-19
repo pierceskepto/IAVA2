@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User, Group
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 
 class TodoItem(models.Model):
     title = models.CharField(max_length=200)
@@ -29,9 +29,6 @@ class Student(models.Model):
     def set_password(self, raw_password):
         self.password = make_password(raw_password)
 
-def check_password(self, raw_password):
+    def check_password(self, raw_password):
         """Check if the provided password matches the stored hashed password."""
         return check_password(raw_password, self.password)
-    
-def __str__(self):
-        return self.name
