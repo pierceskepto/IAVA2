@@ -241,6 +241,11 @@ async def get_next_question(student_id: str, topic: str, served_questions: List[
         "topic": mapped_topic  # Return the mapped topic
     }
     
+@app.get("/health")
+def health_check():
+    """Health check endpoint for the FastAPI quiz service"""
+    return {"status": "healthy", "service": "fastapi-quiz"}
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], # or ["http://127.0.0.1:5500"] for stricter security
