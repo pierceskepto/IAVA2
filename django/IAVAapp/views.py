@@ -124,21 +124,30 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
+
+        print(f"DEBUG: Attempting login for username: {username}")
         
         # First, try to authenticate as a regular Django user (parent)
         user = authenticate(username=username, password=password)
         
         if user is not None:
+            print(f"DEBUG: Django user authentication successful for {username}")
+
             # Clear any existing session data before login
             request.session.flush()
             
             # This is a parent account
             login(request, user)
+            print(f"DEBUG: User logged in: {request.user.is_authenticated}")
+
             # Explicitly mark this as a parent session
             request.session['is_parent'] = True
+            print(f"DEBUG: Session after parent login: {dict(request.session)}")
+
             messages.success(request, f'Welcome back, {username}! Login successful.')
             return redirect('home')  # Redirect to parent home
         else:
+            print(f"DEBUG: Django user authentication failed, trying student login")
             # Try to authenticate as a student
             try:
                 student = Student.objects.get(name=username)
@@ -200,6 +209,90 @@ def homestudent_view(request):
     print(f"DEBUG: Student {student.name} (ID: {student.id}) is_online = {student.is_online}")
 
     return render(request, 'homestudent.html', {'student': student})
+
+
+# NEW: Quiz view for both parents and students
+def quiz_view(request):
+    # Check authentication - allow both parents and students
+    is_parent = request.user.is_authenticated and 'is_parent' in request.session
+    is_student = 'is_student' in request.session and 'student_id' in request.session
+    
+    if not is_parent and not is_student:
+        messages.error(request, 'Please log in to access the quiz.')
+        return redirect('login')
+    
+    # Get user context for the template
+    context = {}
+    if is_student:
+        try:
+            student_id = request.session.get('student_id')
+            student = Student.objects.get(id=student_id)
+            context['student'] = student
+            context['user_type'] = 'student'
+        except Student.DoesNotExist:
+            messages.error(request, 'Student not found. Please log in again.')
+            return redirect('login')
+    else:
+        # Parent user
+        context['user'] = request.user
+        context['user_type'] = 'parent'
+    
+    return render(request, 'quiz.html', context)
+
+
+# NEW: Quiz interface view for the actual quiz game
+def quiz_interface_view(request):
+    # Check authentication - allow both parents and students
+    is_parent = request.user.is_authenticated and 'is_parent' in request.session
+    is_student = 'is_student' in request.session and 'student_id' in request.session
+    
+    if not is_parent and not is_student:
+        messages.error(request, 'Please log in to access the quiz.')
+        return redirect('login')
+    
+    topic = request.GET.get('topic', '')
+    
+    # Get user context for the template
+    context = {'topic': topic}
+    
+    if is_student:
+        try:
+            student_id = request.session.get('student_id')
+            student = Student.objects.get(id=student_id)
+            context['student'] = student
+            context['user_type'] = 'student'
+            context['student_id'] = student_id
+        except Student.DoesNotExist:
+            messages.error(request, 'Student not found. Please log in again.')
+            return redirect('login')
+    else:
+        # Parent user
+        context['user'] = request.user
+        context['user_type'] = 'parent'
+    
+    return render(request, 'quiz_interface.html', context)
+
+
+# NEW: Topic overview view (placeholder for now)
+def topic_overview_view(request):
+    # Check authentication
+    is_parent = request.user.is_authenticated and 'is_parent' in request.session
+    is_student = 'is_student' in request.session and 'student_id' in request.session
+    
+    if not is_parent and not is_student:
+        messages.error(request, 'Please log in to access the quiz.')
+        return redirect('login')
+    
+    topic = request.GET.get('topic', '')
+    
+    # For now, redirect back to quiz page if no topic
+    if not topic:
+        return redirect('quiz')
+    
+    # TODO: Create topic overview template and logic
+    # For now, just show a placeholder
+    context = {'topic': topic}
+    return render(request, 'topic_overview.html', context)
 
 
 def logout_view(request):
