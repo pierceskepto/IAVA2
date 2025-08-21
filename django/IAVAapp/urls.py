@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 from .views import delete_student
-from .views import register_view, login_view, logout_view, add_students, about_view, quiz_view, topic_overview_view, quiz_interface_view
+from .views import register_view, login_view, logout_view, add_students, about_view, quiz_view, topic_overview_view, quiz_interface_view, student_home
 
 urlpatterns =[
     path("", views.home, name="home"),
