@@ -77,26 +77,103 @@
         transition: opacity 0.5s ease-out;
         opacity: 0;
       }
+
+      .navbar-brand {
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+
+      .user-info {
+        color: #6c757d;
+        font-size: 0.9rem;
+        margin-right: 15px;
+      }
     </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{% url 'home' %}">I.A.V.A.</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+      <a class="navbar-brand" href="{% if request.session.is_student %}{% url 'homestudent' %}{% else %}{% url 'home' %}{% endif %}">
+        <i class="fas fa-robot"></i> I.A.V.A.
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
       <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          {% if request.session.is_student %}
+            <!-- Student Navigation -->
+            <li class="nav-item {% if request.resolver_match.url_name == 'homestudent' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'homestudent' %}">
+                <i class="fas fa-home"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item {% if request.resolver_match.url_name == 'quiz' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'quiz' %}">
+                <i class="fas fa-calculator"></i> Math Quiz
+              </a>
+            </li>
+            <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'about' %}">
+                <i class="fas fa-info-circle"></i> About
+              </a>
+            </li>
+          {% else %}
+            <!-- Parent Navigation -->
+            <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'home' %}">
+                <i class="fas fa-home"></i> Home
+              </a>
+            </li>
+            <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'about' %}">
+                <i class="fas fa-info-circle"></i> About
+              </a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item {% if request.resolver_match.url_name == 'register-students' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'register-students' %}">
+                <i class="fas fa-user-plus"></i> Add Student/s
+              </a>
+            </li>
+            <li class="nav-item {% if request.resolver_match.url_name == 'quiz' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'quiz' %}">
+                <i class="fas fa-calculator"></i> Math Quiz
+              </a>
+            </li>
+            {% endif %}
+          {% endif %}
+        </ul>
+        
+        <!-- User Info and Logout -->
         <ul class="navbar-nav">
-          <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'home' %}">Home</a>
-        </li>
-        <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'about' %}">About</a>
-        </li>
-        <li class="nav-item {% if request.resolver_match.url_name == 'register-students' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'register-students' %}">Add Student/s</a>
-        </li>
-        <li class="nav-item {% if request.resolver_match.url_name == 'logout' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-        </li>        
+          {% if request.session.is_student %}
+            <li class="navbar-text user-info">
+              <i class="fas fa-user-graduate"></i> {{ request.session.student_name }}
+            </li>
+          {% elif user.is_authenticated %}
+            <li class="navbar-text user-info">
+              <i class="fas fa-user"></i> {{ user.username }}
+            </li>
+          {% endif %}
+          
+          {% if request.session.is_student or user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link text-danger" href="{% url 'logout' %}">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          {% else %}
+            <li class="nav-item {% if request.resolver_match.url_name == 'login' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'login' %}">
+                <i class="fas fa-sign-in-alt"></i> Login
+              </a>
+            </li>
+            <li class="nav-item {% if request.resolver_match.url_name == 'register' %}active{% endif %}">
+              <a class="nav-link" href="{% url 'register' %}">
+                <i class="fas fa-user-plus"></i> Register
+              </a>
+            </li>
+          {% endif %}
         </ul>
       </div>
     </nav>
