@@ -1,6 +1,327 @@
 {% extends "base.html" %}
 {% block title %}Student Home{% endblock %}
 {% block content %}
+
+<style>
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 20px 0;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 15px;
+    padding: 20px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.xp-progress {
+    margin-top: 10px;
+}
+
+.progress-bar-container {
+    background: rgba(255,255,255,0.3);
+    border-radius: 10px;
+    height: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-fill {
+    background: linear-gradient(90deg, #4CAF50, #81C784);
+    height: 100%;
+    transition: width 0.5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.badges-section {
+    margin: 30px 0;
+}
+
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.badge-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.badge-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.badge-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.badge-name {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.badge-description {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.badge-locked {
+    opacity: 0.3;
+    filter: grayscale(100%);
+}
+
+.level-up-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    z-index: 10000;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    transition: transform 0.5s ease;
+}
+
+.level-up-modal.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.level-up-icon {
+    font-size: 5rem;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+.streak-flame {
+    display: inline-block;
+    animation: flicker 1.5s infinite;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.1); }
+}
+</style>
+
+<div class="container mt-4">
+    <!-- Stats Cards -->
+    <div class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-value" id="studentLevel">1</div>
+            <div class="stat-label">Level</div>
+            <div class="xp-progress">
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="xpProgressBar" style="width: 0%">
+                        <span id="xpProgressText">0 XP</span>
+                    </div>
+                </div>
+                <small id="xpNeeded" style="opacity: 0.8;">0 / 100 XP to next level</small>
+            </div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon"><span class="streak-flame">🔥</span></div>
+            <div class="stat-value" id="studentStreak">0</div>
+            <div class="stat-label">Day Streak</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🎯</div>
+            <div class="stat-value" id="studentAccuracy">0%</div>
+            <div class="stat-label">Accuracy</div>
+        </div>
+
+        <div class="stat-card">
+            <div class="stat-icon">🏆</div>
+            <div class="stat-value" id="badgeCount">0</div>
+            <div class="stat-label">Badges Earned</div>
+        </div>
+    </div>
+
+    <!-- Badges Section -->
+    <div class="badges-section">
+        <h3>🏅 My Badges</h3>
+        <div class="badges-grid" id="badgesGrid">
+            <!-- Badges will be loaded here -->
+            <div class="badge-card badge-locked">
+                <div class="badge-icon">🔒</div>
+                <div class="badge-name">No badges yet</div>
+                <div class="badge-description">Complete quizzes to earn badges!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="mt-4">
+        <h3>📊 Recent Activity</h3>
+        <div id="recentActivity" class="list-group">
+            <!-- Recent attempts will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Level Up Modal -->
+<div id="levelUpModal" class="level-up-modal">
+    <div class="level-up-icon">🎉</div>
+    <h2 style="color: white; margin: 20px 0;">LEVEL UP!</h2>
+    <h1 style="color: white; font-size: 3rem; margin: 10px 0;" id="newLevelDisplay">Level 2</h1>
+    <p style="color: white; font-size: 1.2rem;">Keep up the great work!</p>
+</div>
+
+<!-- Badge Earned Modal -->
+<div id="badgeEarnedModal" class="level-up-modal" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+    <div class="level-up-icon" id="newBadgeIcon">🏆</div>
+    <h2 style="color: white; margin: 20px 0;">NEW BADGE EARNED!</h2>
+    <h3 style="color: white; margin: 10px 0;" id="newBadgeName">Badge Name</h3>
+    <p style="color: white;" id="newBadgeDescription">Badge description</p>
+</div>
+
+<script>
+// Load student stats
+async function loadStudentStats() {
+    const studentId = "{{ request.session.student_id }}";
+    
+    try {
+        const response = await fetch(`/api/student-stats/${studentId}/`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const stats = data.stats;
+            
+            // Update stats display
+            document.getElementById('studentLevel').textContent = stats.level;
+            document.getElementById('studentStreak').textContent = stats.streak;
+            document.getElementById('studentAccuracy').textContent = stats.accuracy + '%';
+            document.getElementById('badgeCount').textContent = stats.badges.length;
+            
+            // Update XP progress
+            const progressBar = document.getElementById('xpProgressBar');
+            const progressText = document.getElementById('xpProgressText');
+            const xpNeeded = document.getElementById('xpNeeded');
+            
+            progressBar.style.width = stats.xp_progress + '%';
+            progressText.textContent = `${stats.xp} XP`;
+            xpNeeded.textContent = `${stats.xp} / ${stats.xp_for_next_level} XP to next level`;
+            
+            // Display badges
+            displayBadges(stats.badges);
+            
+            // Display recent activity
+            displayRecentActivity(stats.recent_attempts);
+        }
+    } catch (error) {
+        console.error('Error loading student stats:', error);
+    }
+}
+
+function displayBadges(badges) {
+    const badgesGrid = document.getElementById('badgesGrid');
+    
+    if (badges.length === 0) {
+        return; // Keep the default "no badges" message
+    }
+    
+    badgesGrid.innerHTML = badges.map(badge => `
+        <div class="badge-card">
+            <div class="badge-icon">${badge.icon}</div>
+            <div class="badge-name">${badge.name}</div>
+            <div class="badge-description">${badge.description}</div>
+            <small style="color: #999;">Earned: ${new Date(badge.earned_date).toLocaleDateString()}</small>
+        </div>
+    `).join('');
+}
+
+function displayRecentActivity(attempts) {
+    const activityContainer = document.getElementById('recentActivity');
+    
+    if (attempts.length === 0) {
+        activityContainer.innerHTML = '<p class="text-muted">No recent activity</p>';
+        return;
+    }
+    
+    activityContainer.innerHTML = attempts.map(attempt => `
+        <div class="list-group-item">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>${attempt.topic}</strong><br>
+                    <small>Score: ${attempt.score}/${attempt.total} | +${attempt.xp_earned} XP</small>
+                </div>
+                <small class="text-muted">${new Date(attempt.completed_at).toLocaleDateString()}</small>
+            </div>
+        </div>
+    `).join('');
+}
+
+function showLevelUpModal(newLevel) {
+    const modal = document.getElementById('levelUpModal');
+    document.getElementById('newLevelDisplay').textContent = `Level ${newLevel}`;
+    modal.classList.add('show');
+    
+    setTimeout(() => {
+        modal.classList.remove('show');
+    }, 3000);
+}
+
+function showBadgeEarnedModal(badge) {
+    const modal = document.getElementById('badgeEarnedModal');
+    document.getElementById('newBadgeIcon').textContent = badge.icon;
+    document.getElementById('newBadgeName').textContent = badge.name;
+    document.getElementById('newBadgeDescription').textContent = badge.description;
+    modal.classList.add('show');
+    
+    setTimeout(() => {
+        modal.classList.remove('show');
+    }, 3000);
+}
+
+// Load stats when page loads
+document.addEventListener('DOMContentLoaded', loadStudentStats);
+</script>
+
 <div class="container mt-4">
     <div class="row">
         <div class="col-md-12">

@@ -997,7 +997,7 @@
     }
     
     try {
-      const url = `http://127.0.0.1:8000/next-question/${studentId}/${currentTopicKey}`;
+      const url = `http://127.0.0.1:8001/next-question/${studentId}/${currentTopicKey}`;
       
       const response = await fetch(url, {
         method: "POST",
@@ -1051,7 +1051,7 @@
         <div class="error-message">
           ⚠️ Failed to load question. 
           <br><strong>Error:</strong> ${error.message}
-          <br><br>Make sure your FastAPI server is running at http://127.0.0.1:8000
+          <br><br>Make sure your FastAPI server is running at http://127.0.0.1:8001
         </div>
       `;
     }
@@ -1132,7 +1132,7 @@
         difficulty: currentQuestion.difficulty
       };
 
-      const response = await fetch("http://127.0.0.1:8000/check-answer", {
+      const response = await fetch("http://127.0.0.1:8001/check-answer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -1253,11 +1253,162 @@
     document.getElementById("difficultyBonusPoints").textContent = `${Math.round(difficultyBonusPoints)} pts`;
     document.getElementById("totalPointsDisplay").textContent = `${totalPoints} pts`;
     
+    // fixed quiz record
+    recordQuizCompletion();
+
     // Save to leaderboard if good time
     if (timerEnabled && totalQuizTime > 0) {
       saveToLeaderboard();
     }
   }
+  
+  // Add this to your quiz_interface.html completion screen logic
+  async function recordQuizCompletion() {
+      const studentId = "{{ request.session.student_id }}";
+      
+      const quizData = {
+          student_id: studentId,
+          topic: currentTopic,
+          score: correctCount,
+          total_questions: maxQuestions,
+          xp_earned: totalPoints,
+          time_spent: totalQuizTime
+      };
+      
+      try {
+          const response = await fetch('/api/quiz-completion/', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(quizData)
+          });
+          
+          const result = await response.json();
+          
+          if (result.success) {
+              // Show level up notification if leveled up
+              if (result.leveled_up) {
+                  showLevelUpNotification(result.new_level);
+              }
+              
+              // Show new badge notifications
+              if (result.new_badges && result.new_badges.length > 0) {
+                  showNewBadges(result.new_badges);
+              }
+              
+              // Update UI with new stats
+              updateStatsDisplay(result);
+          }
+      } catch (error) {
+          console.error('Error recording quiz completion:', error);
+      }
+  }
+
+  function showLevelUpNotification(newLevel) {
+      // Create and show level up notification
+      const notification = document.createElement('div');
+      notification.className = 'level-up-notification';
+      notification.innerHTML = `
+          <div style="
+              position: fixed;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              background: linear-gradient(135deg, #FFD700, #FFA500);
+              padding: 40px 60px;
+              border-radius: 20px;
+              text-align: center;
+              z-index: 10000;
+              box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+              animation: levelUpBounce 0.5s ease;
+          ">
+              <div style="font-size: 5rem; animation: bounce 1s infinite;">🎉</div>
+              <h2 style="color: white; margin: 20px 0; font-size: 2rem;">LEVEL UP!</h2>
+              <h1 style="color: white; font-size: 4rem; margin: 10px 0;">Level ${newLevel}</h1>
+              <p style="color: white; font-size: 1.2rem;">Keep up the amazing work!</p>
+          </div>
+      `;
+      
+      document.body.appendChild(notification);
+      
+      // Remove after 3 seconds
+      setTimeout(() => {
+          notification.remove();
+      }, 3000);
+      
+      // Add confetti effect
+      createConfetti();
+  }
+
+  function showNewBadges(badges) {
+      badges.forEach((badge, index) => {
+          setTimeout(() => {
+              const notification = document.createElement('div');
+              notification.innerHTML = `
+                  <div style="
+                      position: fixed;
+                      top: 50%;
+                      left: 50%;
+                      transform: translate(-50%, -50%);
+                      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                      padding: 40px 60px;
+                      border-radius: 20px;
+                      text-align: center;
+                      z-index: 10000;
+                      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+                      animation: badgeBounce 0.5s ease;
+                  ">
+                      <div style="font-size: 5rem;">${badge.icon}</div>
+                      <h2 style="color: white; margin: 20px 0;">NEW BADGE!</h2>
+                      <h3 style="color: white; margin: 10px 0;">${badge.name}</h3>
+                      <p style="color: white;">${badge.description}</p>
+                  </div>
+              `;
+              
+              document.body.appendChild(notification);
+              
+              setTimeout(() => {
+                  notification.remove();
+              }, 3000);
+          }, index * 3500); // Stagger badge notifications
+      });
+  }
+
+  function updateStatsDisplay(result) {
+      // Update any stats displays on the page
+      const xpDisplay = document.getElementById('currentXP');
+      if (xpDisplay) {
+          xpDisplay.textContent = result.current_xp;
+      }
+      
+      const streakDisplay = document.getElementById('currentStreak');
+      if (streakDisplay) {
+          streakDisplay.textContent = result.streak;
+      }
+  }
+
+  // Add CSS animations
+  const style = document.createElement('style');
+  style.textContent = `
+      @keyframes levelUpBounce {
+          0% { transform: translate(-50%, -50%) scale(0); }
+          50% { transform: translate(-50%, -50%) scale(1.1); }
+          100% { transform: translate(-50%, -50%) scale(1); }
+      }
+      
+      @keyframes badgeBounce {
+          0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+          50% { transform: translate(-50%, -50%) scale(1.1) rotate(180deg); }
+          100% { transform: translate(-50%, -50%) scale(1) rotate(360deg); }
+      }
+      
+      @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-20px); }
+      }
+  `;
+  document.head.appendChild(style);
 
   function formatTime(seconds) {
     const mins = Math.floor(seconds / 60);
