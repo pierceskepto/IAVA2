@@ -5,12 +5,16 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.urls import reverse
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
 from .forms import RegisterForm, StudentForm
-from .models import Student
+from .models import Student, Badge, StudentBadge, QuizAttempt
 from django.forms import modelformset_factory
 from .utils import is_student_online
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
+import json
 
 
 @login_required(login_url='login')
@@ -390,3 +394,179 @@ def delete_student(request, student_id):
     student.delete()
     messages.success(request, f'Student "{student_name}" has been successfully deleted.')
     return redirect('home')
+
+def check_and_award_badges(student):
+    """Check if student has earned any new badges"""
+    all_badges = Badge.objects.all()
+    newly_earned = []
+    
+    for badge in all_badges:
+        # Check if student already has this badge
+        if StudentBadge.objects.filter(student=student, badge=badge).exists():
+            continue
+        
+        # Check if student meets the requirement
+        if badge.requirement_field == 'streak_count':
+            if student.streak_count >= badge.requirement:
+                StudentBadge.objects.create(student=student, badge=badge)
+                newly_earned.append(badge)
+        
+        elif badge.requirement_field == 'accuracy':
+            if student.get_accuracy() >= badge.requirement:
+                StudentBadge.objects.create(student=student, badge=badge)
+                newly_earned.append(badge)
+        
+        elif badge.requirement_field == 'current_level':
+            if student.current_level >= badge.requirement:
+                StudentBadge.objects.create(student=student, badge=badge)
+                newly_earned.append(badge)
+        
+        elif badge.requirement_field == 'xp':
+            if student.xp >= badge.requirement:
+                StudentBadge.objects.create(student=student, badge=badge)
+                newly_earned.append(badge)
+    
+    return newly_earned
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def record_quiz_completion(request):
+    """Record quiz completion and update student stats"""
+    try:
+        data = json.loads(request.body)
+        student_id = data.get('student_id')
+        topic = data.get('topic')
+        score = data.get('score')
+        total_questions = data.get('total_questions')
+        xp_earned = data.get('xp_earned')
+        time_spent = data.get('time_spent')
+        
+        student = Student.objects.get(id=student_id)
+        
+        # Record quiz attempt
+        QuizAttempt.objects.create(
+            student=student,
+            topic=topic,
+            score=score,
+            total_questions=total_questions,
+            xp_earned=xp_earned,
+            time_spent=time_spent
+        )
+        
+        # Update student stats
+        student.total_questions_answered += total_questions
+        student.correct_answers += score
+        
+        # Add XP and check for level up
+        leveled_up, new_level = student.add_xp(xp_earned)
+        
+        # Update streak
+        student.update_streak()
+        
+        # Check for new badges
+        new_badges = check_and_award_badges(student)
+        
+        return JsonResponse({
+            'success': True,
+            'leveled_up': leveled_up,
+            'new_level': new_level,
+            'current_xp': student.xp,
+            'xp_for_next_level': student.xp_for_next_level(),
+            'xp_progress': student.xp_progress_percentage(),
+            'streak': student.streak_count,
+            'new_badges': [
+                {
+                    'name': badge.name,
+                    'description': badge.description,
+                    'icon': badge.icon
+                } for badge in new_badges
+            ]
+        })
+        
+    except Student.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Student not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
+@require_http_methods(["GET"])
+def get_student_stats(request, student_id):
+    """Get detailed student statistics"""
+    try:
+        student = Student.objects.get(id=student_id)
+        badges = StudentBadge.objects.filter(student=student).select_related('badge')
+        recent_attempts = QuizAttempt.objects.filter(student=student).order_by('-completed_at')[:5]
+        
+        return JsonResponse({
+            'success': True,
+            'stats': {
+                'xp': student.xp,
+                'level': student.current_level,
+                'xp_for_next_level': student.xp_for_next_level(),
+                'xp_progress': student.xp_progress_percentage(),
+                'streak': student.streak_count,
+                'total_questions': student.total_questions_answered,
+                'correct_answers': student.correct_answers,
+                'accuracy': student.get_accuracy(),
+                'badges': [
+                    {
+                        'name': sb.badge.name,
+                        'description': sb.badge.description,
+                        'icon': sb.badge.icon,
+                        'earned_date': sb.earned_date.isoformat()
+                    } for sb in badges
+                ],
+                'recent_attempts': [
+                    {
+                        'topic': attempt.topic,
+                        'score': attempt.score,
+                        'total': attempt.total_questions,
+                        'xp_earned': attempt.xp_earned,
+                        'time_spent': attempt.time_spent,
+                        'completed_at': attempt.completed_at.isoformat()
+                    } for attempt in recent_attempts
+                ]
+            }
+        })
+        
+    except Student.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Student not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
+@require_http_methods(["GET"])
+def get_leaderboard(request):
+    """Get leaderboard of top students"""
+    sort_by = request.GET.get('sort_by', 'xp')  # xp, level, streak, accuracy
+    
+    if sort_by == 'xp':
+        students = Student.objects.order_by('-xp')[:10]
+    elif sort_by == 'level':
+        students = Student.objects.order_by('-current_level', '-xp')[:10]
+    elif sort_by == 'streak':
+        students = Student.objects.order_by('-streak_count')[:10]
+    elif sort_by == 'accuracy':
+        students = Student.objects.all()
+        students = sorted(students, key=lambda s: s.get_accuracy(), reverse=True)[:10]
+    else:
+        students = Student.objects.order_by('-xp')[:10]
+    
+    leaderboard_data = []
+    for rank, student in enumerate(students, 1):
+        leaderboard_data.append({
+            'rank': rank,
+            'name': student.name,
+            'xp': student.xp,
+            'level': student.current_level,
+            'streak': student.streak_count,
+            'accuracy': student.get_accuracy(),
+            'badge_count': StudentBadge.objects.filter(student=student).count()
+        })
+    
+    return JsonResponse({
+        'success': True,
+        'leaderboard': leaderboard_data,
+        'sort_by': sort_by
+    })

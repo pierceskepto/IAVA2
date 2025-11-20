@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 from .views import delete_student
-from .views import register_view, login_view, logout_view, add_students, about_view, quiz_view, topic_overview_view, quiz_interface_view, student_home
+from .views import register_view, login_view, logout_view, add_students, about_view, quiz_view, topic_overview_view, quiz_interface_view
 
 urlpatterns =[
     path("", views.home, name="home"),
@@ -20,4 +20,9 @@ urlpatterns =[
 
     # add api endpoints
     path('api/', include('IAVAapp.api_urls')),
+
+    # Gamification endpoints
+    path('api/quiz-completion/', views.record_quiz_completion, name='record_quiz_completion'),
+    path('api/student-stats/<int:student_id>/', views.get_student_stats, name='get_student_stats'),
+    path('api/leaderboard/', views.get_leaderboard, name='get_leaderboard'),
 ]
