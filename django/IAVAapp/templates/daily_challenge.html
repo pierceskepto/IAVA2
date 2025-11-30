@@ -1,0 +1,616 @@
+{% extends "base.html" %}
+{% block title %}Daily Challenge{% endblock %}
+{% block content %}
+
+<style>
+body { 
+  background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%) !important;
+  min-height: 100vh;
+  color: white;
+}
+
+.challenge-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.challenge-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.challenge-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.challenge-date {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.streak-banner {
+  background: linear-gradient(135deg, #FF9800 0%, #FF5722 100%);
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.streak-icon {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.streak-number {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.streak-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.streak-stat {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.challenge-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 2rem;
+}
+
+.challenge-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.topic-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.difficulty-badge {
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.difficulty-easy { background: #4CAF50; }
+.difficulty-medium { background: #FF9800; }
+.difficulty-hard { background: #f44336; }
+
+.bonus-badge {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: bold;
+  color: #000;
+}
+
+.question-text {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.choices-container {
+  margin: 1.5rem 0;
+}
+
+.choice-button {
+  display: block;
+  width: 100%;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.choice-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateX(5px);
+}
+
+.choice-button.selected {
+  background: rgba(76, 175, 80, 0.3);
+  border-color: #4CAF50;
+  box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+}
+
+.choice-button.correct {
+  background: rgba(76, 175, 80, 0.4);
+  border-color: #4CAF50;
+  animation: correctPulse 0.5s ease-in-out;
+}
+
+.choice-button.incorrect {
+  background: rgba(244, 67, 54, 0.4);
+  border-color: #f44336;
+  animation: incorrectShake 0.5s ease-in-out;
+}
+
+@keyframes correctPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes incorrectShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+.choice-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn {
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary {
+  background: #4CAF50;
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+  background: rgba(76, 175, 80, 0.5);
+  cursor: not-allowed;
+}
+
+.feedback {
+  margin-top: 1rem;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.feedback.success {
+  background: rgba(76, 175, 80, 0.2);
+  border: 1px solid #4CAF50;
+}
+
+.feedback.error {
+  background: rgba(244, 67, 54, 0.2);
+  border: 1px solid #f44336;
+}
+
+.completed-message {
+  text-align: center;
+  padding: 40px;
+}
+
+.completed-icon {
+  font-size: 5rem;
+  margin-bottom: 20px;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.history-section {
+  margin-top: 3rem;
+}
+
+.history-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.history-day {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+}
+
+.history-day:hover {
+  transform: scale(1.05);
+}
+
+.history-day.completed {
+  background: rgba(76, 175, 80, 0.3);
+  border: 2px solid #4CAF50;
+}
+
+.history-day.missed {
+  background: rgba(244, 67, 54, 0.3);
+  border: 2px solid #f44336;
+}
+
+.history-day.today {
+  background: rgba(255, 152, 0, 0.3);
+  border: 2px solid #FF9800;
+}
+
+.hidden { display: none; }
+
+/* Override navbar */
+.navbar {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(10px);
+}
+
+.navbar-brand, .nav-link {
+  color: white !important;
+}
+</style>
+
+<div class="challenge-container">
+  <div class="challenge-header">
+    <h1>🎯 Daily Challenge</h1>
+    <div class="challenge-date" id="challengeDate">Loading...</div>
+  </div>
+
+  <!-- Streak Banner -->
+  <div class="streak-banner">
+    <div class="streak-icon">🔥</div>
+    <div class="streak-number" id="currentStreak">0 Day Streak</div>
+    <div class="streak-stats">
+      <div class="streak-stat">
+        <div>Longest</div>
+        <strong id="longestStreak">0</strong>
+      </div>
+      <div class="streak-stat">
+        <div>Completed</div>
+        <strong id="totalCompleted">0</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Challenge Card -->
+  <div class="challenge-card" id="challengeCard">
+    <div id="loadingMessage">
+      <p style="text-align: center;">🎲 Loading today's challenge...</p>
+    </div>
+
+    <div id="challengeContent" class="hidden">
+      <div class="challenge-info">
+        <div class="topic-badge" id="topicBadge">Topic</div>
+        <div class="difficulty-badge" id="difficultyBadge">Medium</div>
+        <div class="bonus-badge">
+          ⭐ +<span id="bonusXP">200</span> Bonus XP
+        </div>
+      </div>
+
+      <div class="question-text" id="questionText">Loading question...</div>
+
+      <div class="choices-container" id="choicesContainer">
+        <!-- Choices will be loaded here -->
+      </div>
+
+      <div style="text-align: center;">
+        <button id="submitBtn" class="btn btn-primary" disabled>
+          Submit Answer
+        </button>
+      </div>
+
+      <div id="feedback" class="feedback hidden"></div>
+    </div>
+
+    <div id="completedMessage" class="completed-message hidden">
+      <div class="completed-icon">✅</div>
+      <h2>Challenge Already Completed!</h2>
+      <p>You've already completed today's challenge.</p>
+      <p>Come back tomorrow for a new one!</p>
+      <div style="margin-top: 20px;">
+        <strong>Time spent:</strong> <span id="completedTime">0</span>s<br>
+        <strong>XP earned:</strong> <span id="completedXP">0</span> XP
+      </div>
+    </div>
+  </div>
+
+  <!-- Challenge History -->
+  <div class="history-section">
+    <h3>📅 Challenge History (Last 30 Days)</h3>
+    <div class="history-grid" id="historyGrid">
+      <!-- History will be loaded here -->
+    </div>
+  </div>
+</div>
+
+<script>
+const studentId = "{{ request.session.student_id }}";
+let currentChallenge = null;
+let selectedAnswer = null;
+let questionStartTime = null;
+
+// Load today's challenge
+async function loadDailyChallenge() {
+  try {
+    const response = await fetch(`/api/daily-challenge/${studentId}/`);
+    const data = await response.json();
+
+    if (data.success) {
+      currentChallenge = data.challenge;
+      
+      // Update streak info
+      document.getElementById('currentStreak').textContent = 
+        `${data.streak.current} Day Streak`;
+      document.getElementById('longestStreak').textContent = data.streak.longest;
+      document.getElementById('totalCompleted').textContent = data.streak.total_completed;
+
+      // Update date
+      const date = new Date(currentChallenge.date);
+      document.getElementById('challengeDate').textContent = 
+        date.toLocaleDateString('en-US', { 
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric' 
+        });
+
+      // Check if already completed
+      if (currentChallenge.already_completed) {
+        showCompletedMessage();
+      } else {
+        await loadQuestion();
+      }
+
+      // Load history
+      loadChallengeHistory();
+    }
+  } catch (error) {
+    console.error('Error loading daily challenge:', error);
+    document.getElementById('loadingMessage').innerHTML = 
+      '<p style="color: #f44336;">❌ Failed to load challenge. Please try again.</p>';
+  }
+}
+
+async function loadQuestion() {
+  try {
+    // Get question from FastAPI
+    const topicMap = {
+      'Fractions': 'fractions',
+      'Decimals': 'decimals',
+      'Angles': 'angles',
+      'Multi-digit Multiplication': 'multi-digit-multiplication',
+      'Ratios and Proportional Relationships': 'ratios-and-proportional-relationships',
+      'Statistics': 'statistics'
+    };
+    
+    const topicKey = topicMap[currentChallenge.topic] || 'fractions';
+    
+    const response = await fetch(
+      `http://127.0.0.1:8001/next-question/${studentId}/${topicKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify([])
+      }
+    );
+
+    const questionData = await response.json();
+
+    // Hide loading, show content
+    document.getElementById('loadingMessage').classList.add('hidden');
+    document.getElementById('challengeContent').classList.remove('hidden');
+
+    // Update challenge info
+    document.getElementById('topicBadge').textContent = currentChallenge.topic;
+    document.getElementById('difficultyBadge').textContent = currentChallenge.difficulty;
+    document.getElementById('difficultyBadge').className = 
+      `difficulty-badge difficulty-${currentChallenge.difficulty.toLowerCase()}`;
+    document.getElementById('bonusXP').textContent = currentChallenge.bonus_xp;
+
+    // Display question
+    document.getElementById('questionText').textContent = questionData.question;
+
+    // Display choices
+    displayChoices(questionData.choices, questionData.correct_answer);
+
+    // Start timer
+    questionStartTime = Date.now();
+
+  } catch (error) {
+    console.error('Error loading question:', error);
+    document.getElementById('loadingMessage').innerHTML = 
+      '<p style="color: #f44336;">❌ Failed to load question. Please try again.</p>';
+  }
+}
+
+function displayChoices(choices) {
+  const container = document.getElementById('choicesContainer');
+  const labels = ['A', 'B', 'C', 'D'];
+  
+  container.innerHTML = choices.map((choice, index) => `
+    <button class="choice-button" data-answer="${choice}">
+      <strong>${labels[index]})</strong> ${choice}
+    </button>
+  `).join('');
+
+  // Add click listeners
+  container.querySelectorAll('.choice-button').forEach(btn => {
+    btn.addEventListener('click', () => selectChoice(btn));
+  });
+}
+
+function selectChoice(button) {
+  // Remove previous selection
+  document.querySelectorAll('.choice-button').forEach(btn => {
+    btn.classList.remove('selected');
+  });
+
+  // Select new choice
+  button.classList.add('selected');
+  selectedAnswer = button.dataset.answer;
+
+  // Enable submit button
+  document.getElementById('submitBtn').disabled = false;
+}
+
+document.getElementById('submitBtn').addEventListener('click', async () => {
+  if (!selectedAnswer) return;
+
+  const timeSpent = (Date.now() - questionStartTime) / 1000;
+
+  // Disable all buttons
+  document.querySelectorAll('.choice-button').forEach(btn => {
+    btn.disabled = true;
+  });
+  document.getElementById('submitBtn').disabled = true;
+
+  try {
+    // First check answer with FastAPI
+    const checkResponse = await fetch('http://127.0.0.1:8001/check-answer', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        student_id: studentId,
+        topic: currentChallenge.topic,
+        question_id: document.getElementById('questionText').textContent,
+        answer: selectedAnswer,
+        time_spent: timeSpent,
+        difficulty: currentChallenge.difficulty
+      })
+    });
+
+    const checkResult = await checkResponse.json();
+
+    // Submit to Django backend
+    const submitResponse = await fetch('/api/daily-challenge/submit/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        student_id: studentId,
+        challenge_id: currentChallenge.id,
+        is_correct: checkResult.is_correct,
+        time_spent: timeSpent
+      })
+    });
+
+    const submitResult = await submitResponse.json();
+
+    // Show feedback
+    const feedback = document.getElementById('feedback');
+    const selectedButton = document.querySelector('.choice-button.selected');
+
+    if (checkResult.is_correct) {
+      selectedButton.classList.add('correct');
+      feedback.className = 'feedback success';
+      feedback.innerHTML = `
+        ✅ <strong>Correct!</strong><br>
+        You earned ${currentChallenge.bonus_xp} bonus XP!<br>
+        ${submitResult.leveled_up ? `🎉 Level Up! You're now level ${submitResult.new_level}!` : ''}
+      `;
+      
+      // Update streak
+      await loadDailyChallenge(); // Reload to update streak
+    } else {
+      selectedButton.classList.add('incorrect');
+      feedback.className = 'feedback error';
+      feedback.textContent = `❌ Incorrect. ${checkResult.message || 'Try again tomorrow!'}`;
+    }
+
+    feedback.classList.remove('hidden');
+
+  } catch (error) {
+    console.error('Error submitting answer:', error);
+    document.getElementById('feedback').className = 'feedback error';
+    document.getElementById('feedback').textContent = '❌ Error submitting answer';
+    document.getElementById('feedback').classList.remove('hidden');
+  }
+});
+
+function showCompletedMessage() {
+  document.getElementById('loadingMessage').classList.add('hidden');
+  document.getElementById('completedMessage').classList.remove('hidden');
+  document.getElementById('completedTime').textContent = 
+    Math.round(currentChallenge.time_spent);
+  document.getElementById('completedXP').textContent = currentChallenge.score * currentChallenge.bonus_xp;
+}
+
+async function loadChallengeHistory() {
+  try {
+    const response = await fetch(`/api/daily-challenge/history/${studentId}/`);
+    const data = await response.json();
+
+    if (data.success) {
+      const grid = document.getElementById('historyGrid');
+      const today = new Date().toISOString().split('T')[0];
+      
+      grid.innerHTML = data.history.map(entry => {
+        const isToday = entry.date === today;
+        const className = isToday ? 'today' : (entry.completed ? 'completed' : 'missed');
+        const date = new Date(entry.date);
+        
+        return `
+          <div class="history-day ${className}" title="${date.toLocaleDateString()}">
+            <div>${date.getDate()}</div>
+            <div style="font-size: 0.7rem;">${date.toLocaleDateString('en-US', { month: 'short' })}</div>
+          </div>
+        `;
+      }).join('');
+    }
+  } catch (error) {
+    console.error('Error loading challenge history:', error);
+  }
+}
+
+// Load on page load
+document.addEventListener('DOMContentLoaded', loadDailyChallenge);
+</script>
+
+{% endblock %}
