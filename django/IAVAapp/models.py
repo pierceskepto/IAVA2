@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.hashers import make_password, check_password
 from django.utils import timezone
-from datetime import timedelta
+from datetime import timedelta, date
 
 class TodoItem(models.Model):
     title = models.CharField(max_length=200)
@@ -147,3 +147,97 @@ class QuizAttempt(models.Model):
     
     def __str__(self):
         return f"{self.student.name} - {self.topic} - {self.score}/{self.total_questions}"
+    
+
+class DailyChallenge(models.Model):
+    """Represents a daily challenge question"""
+    date = models.DateField(unique=True, default=date.today)
+    topic = models.CharField(max_length=100)
+    question_id = models.CharField(max_length=500)  # The actual question text
+    difficulty = models.CharField(max_length=20, default='medium')
+    bonus_xp = models.IntegerField(default=200)  # Extra XP for completing daily challenge
+    
+    class Meta:
+        ordering = ['-date']
+    
+    def __str__(self):
+        return f"Daily Challenge - {self.date} - {self.topic}"
+    
+    @classmethod
+    def get_or_create_today(cls):
+        """Get today's challenge or create a new one"""
+        today = date.today()
+        challenge, created = cls.objects.get_or_create(
+            date=today,
+            defaults={
+                'topic': cls._random_topic(),
+                'question_id': '',  # Will be populated from FastAPI
+                'difficulty': 'medium',
+                'bonus_xp': 200
+            }
+        )
+        return challenge
+    
+    @staticmethod
+    def _random_topic():
+        import random
+        topics = ['Fractions', 'Decimals', 'Angles', 
+                  'Multi-digit Multiplication', 
+                  'Ratios and Proportional Relationships', 
+                  'Statistics']
+        return random.choice(topics)
+
+
+class DailyChallengeAttempt(models.Model):
+    """Track student attempts at daily challenges"""
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='daily_attempts')
+    challenge = models.ForeignKey(DailyChallenge, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+    score = models.IntegerField(default=0)
+    xp_earned = models.IntegerField(default=0)
+    time_spent = models.FloatField(default=0)
+    completed_at = models.DateTimeField(null=True, blank=True)
+    
+    class Meta:
+        unique_together = ('student', 'challenge')
+        ordering = ['-challenge__date']
+    
+    def __str__(self):
+        return f"{self.student.name} - {self.challenge.date} - {'Completed' if self.completed else 'Incomplete'}"
+
+
+class ChallengeStreak(models.Model):
+    """Track student's daily challenge completion streak"""
+    student = models.OneToOneField(Student, on_delete=models.CASCADE, related_name='challenge_streak')
+    current_streak = models.IntegerField(default=0)
+    longest_streak = models.IntegerField(default=0)
+    last_completed_date = models.DateField(null=True, blank=True)
+    total_challenges_completed = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"{self.student.name} - Streak: {self.current_streak}"
+    
+    def update_streak(self):
+        """Update streak when a challenge is completed"""
+        today = date.today()
+        
+        if self.last_completed_date is None:
+            # First challenge completed
+            self.current_streak = 1
+        elif self.last_completed_date == today:
+            # Already completed today
+            pass
+        elif self.last_completed_date == today - timedelta(days=1):
+            # Continue streak
+            self.current_streak += 1
+        else:
+            # Streak broken
+            self.current_streak = 1
+        
+        # Update longest streak
+        if self.current_streak > self.longest_streak:
+            self.longest_streak = self.current_streak
+        
+        self.last_completed_date = today
+        self.total_challenges_completed += 1
+        self.save()

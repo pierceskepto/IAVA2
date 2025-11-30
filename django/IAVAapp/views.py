@@ -5,16 +5,19 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.urls import reverse
+from django.utils import timezone
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
 from .forms import RegisterForm, StudentForm
-from .models import Student, Badge, StudentBadge, QuizAttempt
+from .models import Student, Badge, StudentBadge, QuizAttempt, DailyChallenge, DailyChallengeAttempt, ChallengeStreak
 from django.forms import modelformset_factory
 from .utils import is_student_online
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-import json
+from datetime import date
+import json, requests
+
 
 
 @login_required(login_url='login')
@@ -570,3 +573,216 @@ def get_leaderboard(request):
         'leaderboard': leaderboard_data,
         'sort_by': sort_by
     })
+
+@require_http_methods(["GET"])
+def get_daily_challenge(request, student_id):
+    """Get today's daily challenge for a student"""
+    try:
+        student = Student.objects.get(id=student_id)
+        challenge = DailyChallenge.get_or_create_today()
+        
+        # Check if student has already attempted today's challenge
+        try:
+            attempt = DailyChallengeAttempt.objects.get(
+                student=student,
+                challenge=challenge
+            )
+            already_completed = attempt.completed
+        except DailyChallengeAttempt.DoesNotExist:
+            already_completed = False
+            attempt = None
+        
+        # Get or create challenge streak
+        streak, _ = ChallengeStreak.objects.get_or_create(student=student)
+        
+        # If challenge doesn't have a question yet, get one from FastAPI
+        if not challenge.question_id:
+            try:
+                # Map topic to frontend format
+                topic_map = {
+                    'Fractions': 'fractions',
+                    'Decimals': 'decimals',
+                    'Angles': 'angles',
+                    'Multi-digit Multiplication': 'multi-digit-multiplication',
+                    'Ratios and Proportional Relationships': 'ratios-and-proportional-relationships',
+                    'Statistics': 'statistics'
+                }
+                topic_key = topic_map.get(challenge.topic, 'fractions')
+                
+                # Request a question from FastAPI
+                response = requests.post(
+                    f'http://127.0.0.1:8001/next-question/{student_id}/{topic_key}',
+                    json=[],
+                    timeout=5
+                )
+                
+                if response.ok:
+                    question_data = response.json()
+                    challenge.question_id = question_data.get('id', '')
+                    challenge.difficulty = question_data.get('difficulty', 'medium')
+                    challenge.save()
+            except Exception as e:
+                print(f"Error fetching daily challenge question: {e}")
+        
+        return JsonResponse({
+            'success': True,
+            'challenge': {
+                'id': challenge.id,
+                'date': challenge.date.isoformat(),
+                'topic': challenge.topic,
+                'difficulty': challenge.difficulty,
+                'bonus_xp': challenge.bonus_xp,
+                'already_completed': already_completed,
+                'time_spent': attempt.time_spent if attempt else 0,
+                'score': attempt.score if attempt else 0
+            },
+            'streak': {
+                'current': streak.current_streak,
+                'longest': streak.longest_streak,
+                'total_completed': streak.total_challenges_completed
+            }
+        })
+        
+    except Student.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Student not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def submit_daily_challenge(request):
+    """Submit a daily challenge answer"""
+    try:
+        data = json.loads(request.body)
+        student_id = data.get('student_id')
+        challenge_id = data.get('challenge_id')
+        is_correct = data.get('is_correct')
+        time_spent = data.get('time_spent', 0)
+        
+        student = Student.objects.get(id=student_id)
+        challenge = DailyChallenge.objects.get(id=challenge_id)
+        
+        # Create or update attempt
+        attempt, created = DailyChallengeAttempt.objects.get_or_create(
+            student=student,
+            challenge=challenge,
+            defaults={
+                'completed': is_correct,
+                'score': 1 if is_correct else 0,
+                'time_spent': time_spent,
+                'completed_at': timezone.now() if is_correct else None
+            }
+        )
+        
+        if not created and attempt.completed:
+            return JsonResponse({
+                'success': False,
+                'error': 'Challenge already completed today'
+            }, status=400)
+        
+        # Update attempt if not completed
+        if not attempt.completed:
+            attempt.completed = is_correct
+            attempt.score = 1 if is_correct else 0
+            attempt.time_spent = time_spent
+            if is_correct:
+                attempt.completed_at = timezone.now()
+            attempt.save()
+        
+        # Award bonus XP and update streak if correct
+        bonus_awarded = False
+        new_badges = []
+        leveled_up = False
+        new_level = student.current_level
+        
+        if is_correct:
+            # Award bonus XP
+            xp_earned = challenge.bonus_xp
+            attempt.xp_earned = xp_earned
+            attempt.save()
+            
+            leveled_up, new_level = student.add_xp(xp_earned)
+            bonus_awarded = True
+            
+            # Update challenge streak
+            streak, _ = ChallengeStreak.objects.get_or_create(student=student)
+            streak.update_streak()
+            
+            # Check for new badges
+            new_badges = check_and_award_badges(student)
+        
+        return JsonResponse({
+            'success': True,
+            'correct': is_correct,
+            'bonus_awarded': bonus_awarded,
+            'xp_earned': attempt.xp_earned,
+            'leveled_up': leveled_up,
+            'new_level': new_level,
+            'new_badges': [
+                {
+                    'name': badge.name,
+                    'description': badge.description,
+                    'icon': badge.icon
+                } for badge in new_badges
+            ]
+        })
+        
+    except Student.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Student not found'}, status=404)
+    except DailyChallenge.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Challenge not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+
+
+@require_http_methods(["GET"])
+def get_challenge_history(request, student_id):
+    """Get student's daily challenge history"""
+    try:
+        student = Student.objects.get(id=student_id)
+        attempts = DailyChallengeAttempt.objects.filter(
+            student=student
+        ).select_related('challenge').order_by('-challenge__date')[:30]
+        
+        streak, _ = ChallengeStreak.objects.get_or_create(student=student)
+        
+        return JsonResponse({
+            'success': True,
+            'history': [
+                {
+                    'date': attempt.challenge.date.isoformat(),
+                    'topic': attempt.challenge.topic,
+                    'difficulty': attempt.challenge.difficulty,
+                    'completed': attempt.completed,
+                    'xp_earned': attempt.xp_earned,
+                    'time_spent': attempt.time_spent
+                } for attempt in attempts
+            ],
+            'streak': {
+                'current': streak.current_streak,
+                'longest': streak.longest_streak,
+                'total_completed': streak.total_challenges_completed
+            }
+        })
+        
+    except Student.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Student not found'}, status=404)
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    
+
+def daily_challenge_view(request):
+    # Check authentication - students only
+    if 'student_id' not in request.session or 'is_student' not in request.session:
+        messages.error(request, 'Please log in to access the daily challenge.')
+        return redirect('login')
+    
+    student_id = request.session.get('student_id')
+    try:
+        student = Student.objects.get(id=student_id)
+    except Student.DoesNotExist:
+        messages.error(request, 'Student not found. Please log in again.')
+        return redirect('login')
+    
+    return render(request, 'daily_challenge.html', {'student': student})

@@ -25,4 +25,10 @@ urlpatterns =[
     path('api/quiz-completion/', views.record_quiz_completion, name='record_quiz_completion'),
     path('api/student-stats/<int:student_id>/', views.get_student_stats, name='get_student_stats'),
     path('api/leaderboard/', views.get_leaderboard, name='get_leaderboard'),
+
+    # Daily Challenge routes
+    path('api/daily-challenge/<int:student_id>/', views.get_daily_challenge, name='get_daily_challenge'),
+    path('api/daily-challenge/submit/', views.submit_daily_challenge, name='submit_daily_challenge'),
+    path('api/daily-challenge/history/<int:student_id>/', views.get_challenge_history, name='challenge_history'),
+    path('daily-challenge/', views.daily_challenge_view, name='daily_challenge'),
 ]
